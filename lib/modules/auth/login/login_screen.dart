@@ -21,32 +21,31 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(LoginRepository()),
-      child: Scaffold(
-        appBar: AppBar(),
-        body: BlocConsumer<LoginBloc, LoginState>(
-          listener: (context, state) {
-            if (state is LoginSuccessState) {
-              buildToastMessage(state.model.message, Colors.green);
-              navigateToHomeScreen(context);
-            } else if (state is LoginErrorState) {
-              buildToastMessage(state.message, Colors.red);
-            } else if (state is LoginNavigationToRegisterScreenState) {
-              navigateToRegisterScreen(context);
-            }
-          },
-          builder: (context, state) {
-            if (state is LoginInitialState) {
-              return initialWidget(context);
-            } else if (state is LoginLoadingState) {
-              return loadingWidget();
-            } else {
-              return initialWidget(context);
-            }
-          },
-        ),
-      ),
-    );
+        create: (context) => LoginBloc(LoginRepository()),
+        child: Scaffold(
+          appBar: AppBar(),
+          body: BlocConsumer<LoginBloc, LoginState>(
+            listener: (context, state) {
+              if (state is LoginSuccessState) {
+                buildToastMessage(state.model.message, Colors.green);
+                navigateToHomeScreen(context);
+              } else if (state is LoginErrorState) {
+                buildToastMessage(state.message, Colors.red);
+              } else if (state is LoginNavigationToRegisterScreenState) {
+                navigateToRegisterScreen(context);
+              }
+            },
+            builder: (context, state) {
+              if (state is LoginInitialState) {
+                return initialWidget(context);
+              } else if (state is LoginLoadingState) {
+                return loadingWidget();
+              } else {
+                return initialWidget(context);
+              }
+            },
+          ),
+        ));
   }
 
   ///////////////////////////////////////////////////////////
