@@ -2,7 +2,6 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/models/home.dart';
 import 'package:shop_app/models/login_models.dart';
 import 'package:shop_app/modules/auth/login/cubit/login_cubit.dart';
 import 'package:shop_app/modules/auth/login/cubit/login_states.dart';
@@ -11,11 +10,11 @@ import 'package:shop_app/modules/home/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   //Form Key
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   //TextFormFieldControllers
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +35,7 @@ class LoginScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(onPressed: () {  },),
             appBar: AppBar(),
             body: Center(
               child: SingleChildScrollView(
