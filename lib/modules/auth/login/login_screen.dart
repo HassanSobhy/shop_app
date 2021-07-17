@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/models/home.dart';
-import 'package:shop_app/models/login_models.dart';
+import 'package:shop_app/models/login/login_model.dart';
 import 'package:shop_app/modules/auth/login/cubit/login_cubit.dart';
 import 'package:shop_app/modules/auth/login/cubit/login_states.dart';
 import 'package:shop_app/modules/auth/register/register_screen.dart';
@@ -103,8 +103,8 @@ class LoginScreen extends StatelessWidget {
                                 onPressed: () {
                                   if (formKey.currentState.validate()) {
                                     LoginModel loginModel = LoginModel(
-                                      email: emailController.text.trim(),
-                                      password: passwordController.text.trim(),
+                                      emailController.text.trim(),
+                                      passwordController.text.trim(),
                                     );
                                     LoginCubit.get(context).userLogin(
                                       loginModel: loginModel,
