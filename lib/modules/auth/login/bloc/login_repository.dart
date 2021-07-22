@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/models/login/login_model.dart';
 import 'package:shop_app/models/login/login_response_model.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_state.dart';
+import 'package:shop_app/network/local/preference_utils.dart';
 import 'package:shop_app/network/remote/dio_helper.dart';
 import 'package:shop_app/network/remote/login_api_service.dart';
 
-import '../end_points.dart';
+import '../../../../constant.dart';
+import '../../../../network/end_points.dart';
 
 abstract class LoginRepository {
   Future<LoginState> signInWithEmailAndPassword(LoginModel loginModel);
@@ -27,6 +29,7 @@ class LoginRepositoryImp extends LoginRepository {
       LoginResponseModel model = LoginResponseModel.fromJson(response.data);
       if(model.status){
         loginState = LoginSuccessState(model);
+        PreferenceUtils.setData(userTokenKey, model.data.token);
       } else{
         errorMessage = model.message;
         loginState = LoginErrorState(errorMessage);
@@ -38,4 +41,6 @@ class LoginRepositoryImp extends LoginRepository {
 
     return loginState;
   }
+
+
 }
