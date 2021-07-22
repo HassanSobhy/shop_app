@@ -7,3 +7,7 @@ class UserLoginEvent extends LoginEvent{
 
   UserLoginEvent(this.loginModel);
 }
+
+class ChangePasswordVisibility extends LoginEvent{
+  
+}
