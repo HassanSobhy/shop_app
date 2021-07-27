@@ -1,13 +1,15 @@
 import 'package:shop_app/models/login/login_model.dart';
 
-abstract class LoginEvent{}
-
-class UserLoginEvent extends LoginEvent{
-  LoginModel loginModel;
-
-  UserLoginEvent(this.loginModel);
+abstract class LoginEvent{
+  const LoginEvent();
 }
 
-class ChangePasswordVisibility extends LoginEvent{
-  
+class UserLoginEvent extends LoginEvent{
+  final LoginModel loginModel;
+
+  const UserLoginEvent(this.loginModel);
+}
+
+class ChangePasswordVisibilityEvent extends LoginEvent{
+  const ChangePasswordVisibilityEvent();
 }

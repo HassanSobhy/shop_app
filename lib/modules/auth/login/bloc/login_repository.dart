@@ -1,20 +1,18 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+
+import 'package:shop_app/constant.dart';
 import 'package:shop_app/models/login/login_model.dart';
 import 'package:shop_app/models/login/login_response_model.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_state.dart';
+import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
-import 'package:shop_app/network/remote/dio_helper.dart';
 import 'package:shop_app/network/remote/login_api_service.dart';
 
-import '../../../../constant.dart';
-import '../../../../network/end_points.dart';
-
-abstract class LoginRepository {
+abstract class BaseLoginRepository {
   Future<LoginState> signInWithEmailAndPassword(LoginModel loginModel);
 }
 
-class LoginRepositoryImp extends LoginRepository {
+class LoginRepository extends BaseLoginRepository {
   @override
   Future<LoginState> signInWithEmailAndPassword(LoginModel loginModel) async {
     LoginState loginState;
@@ -27,10 +25,11 @@ class LoginRepositoryImp extends LoginRepository {
         lang: language,
       );
       LoginResponseModel model = LoginResponseModel.fromJson(response.data);
-      if(model.status){
+      if (model.status) {
         loginState = LoginSuccessState(model);
-        PreferenceUtils.setData(userTokenKey, model.data.token);
-      } else{
+        PreferenceUtils.setData(
+            userTokenKey, model.loginResponseDataModel.token);
+      } else {
         errorMessage = model.message;
         loginState = LoginErrorState(errorMessage);
       }
@@ -41,6 +40,4 @@ class LoginRepositoryImp extends LoginRepository {
 
     return loginState;
   }
-
-
 }

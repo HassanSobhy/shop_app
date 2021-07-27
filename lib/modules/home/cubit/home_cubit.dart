@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shop_app/constant.dart';
 import 'package:shop_app/models/category_models/categories_model.dart';
 import 'package:shop_app/models/favorites_models/favorite.dart';

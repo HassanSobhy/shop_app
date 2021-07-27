@@ -1,8 +1,8 @@
 class LoginModel {
-  String email;
-  String password;
+  final String email;
+  final String password;
 
-  LoginModel(
+  const LoginModel(
     this.email,
     this.password,
   );
