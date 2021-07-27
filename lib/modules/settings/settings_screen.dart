@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:shop_app/models/login/login_response_model.dart';
 import 'package:shop_app/modules/auth/login/login_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
-
 import '../../constant.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -30,9 +31,9 @@ class SettingsScreen extends StatelessWidget {
         if(state is HomeLoadingProfileState){
           return buildLoadingState();
         } else {
-          nameController.text = HomeCubit.get(context).userDataModel.data.name;
-          emailController.text = HomeCubit.get(context).userDataModel.data.email;
-          phoneController.text = HomeCubit.get(context).userDataModel.data.phone;
+          nameController.text = HomeCubit.get(context).userDataModel.loginResponseDataModel.name;
+          emailController.text = HomeCubit.get(context).userDataModel.loginResponseDataModel.email;
+          phoneController.text = HomeCubit.get(context).userDataModel.loginResponseDataModel.phone;
           return buildLoadedState(context);
         }
       },

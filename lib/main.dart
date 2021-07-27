@@ -1,12 +1,13 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+
+import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shop_app/modules/auth/login/login_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'package:shop_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:shop_app/shop_observer.dart';
-
 import 'constant.dart';
 import 'network/local/preference_utils.dart';
 import 'network/remote/dio_helper.dart';
