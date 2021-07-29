@@ -27,3 +27,10 @@ class LoginErrorState extends LoginState {
 class LoginChangePasswordVisibilityState extends LoginState {
   const LoginChangePasswordVisibilityState();
 }
+
+class LoginEmailAndPasswordValidationState extends LoginState{
+  final String emailMessage;
+  final String passwordMessage;
+  const LoginEmailAndPasswordValidationState(this.emailMessage,this.passwordMessage);
+}
+
