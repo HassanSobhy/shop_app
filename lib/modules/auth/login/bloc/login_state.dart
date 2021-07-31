@@ -1,4 +1,6 @@
-import '/models/login/login_response_model.dart';
+
+
+import 'package:shop_app/models/login/login_response_model.dart';
 
 abstract class LoginState {
   const LoginState();
