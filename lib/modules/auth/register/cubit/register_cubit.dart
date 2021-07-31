@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/register/register_model.dart';
-import 'package:shop_app/models/response_model.dart';
+import 'package:shop_app/models/register/register_response_model.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
 import 'package:shop_app/network/remote/login_api_service.dart';
