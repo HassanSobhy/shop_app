@@ -18,7 +18,7 @@ class LoginApiService {
     return DioHelper.dio.post(path, data: data, queryParameters: query);
   }
 
-  static Future<Response> registerUser({
+  static Future<Response> signUpWithEmailAndPassword({
     @required String path,
     @required Map<String, dynamic> data,
     @required String lang,
