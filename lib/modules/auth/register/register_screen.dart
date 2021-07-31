@@ -2,7 +2,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/models/register_model.dart';
+import 'package:shop_app/models/register/register_model.dart';
 import 'package:shop_app/modules/auth/login/login_screen.dart';
 import 'package:shop_app/modules/auth/register/cubit/register_states.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
