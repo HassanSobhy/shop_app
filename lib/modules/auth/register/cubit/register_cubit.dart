@@ -24,7 +24,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       RegisterResponseModel model = RegisterResponseModel.fromJson(response.data);
 
       if (model.status) {
-        PreferenceUtils.setData(userTokenKey, model.data.token);
+        PreferenceUtils.setData(userTokenKey, model.registerUserDataModel.token);
         emit(RegisterSuccessState(model));
       } else {
         emit(RegisterErrorState(model.message));

@@ -30,9 +30,9 @@ class SettingsScreen extends StatelessWidget {
         if(state is HomeLoadingProfileState){
           return buildLoadingState();
         } else {
-          nameController.text = HomeCubit.get(context).userDataModel.data.name;
-          emailController.text = HomeCubit.get(context).userDataModel.data.email;
-          phoneController.text = HomeCubit.get(context).userDataModel.data.phone;
+          nameController.text = HomeCubit.get(context).userDataModel.registerUserDataModel.name;
+          emailController.text = HomeCubit.get(context).userDataModel.registerUserDataModel.email;
+          phoneController.text = HomeCubit.get(context).userDataModel.registerUserDataModel.phone;
           return buildLoadedState(context);
         }
       },

@@ -24,7 +24,7 @@ class LoginCubit extends Cubit<LoginStates> {
       RegisterResponseModel model = RegisterResponseModel.fromJson(response.data);
 
       if(model.status){
-        PreferenceUtils.setData(userTokenKey, model.data.token);
+        PreferenceUtils.setData(userTokenKey, model.registerUserDataModel.token);
         emit(LoginSuccessState(model));
       } else {
         emit(LoginErrorState(model.message));
