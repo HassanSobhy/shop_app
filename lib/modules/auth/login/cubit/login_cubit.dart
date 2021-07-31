@@ -5,7 +5,7 @@ import 'package:shop_app/models/login_models.dart';
 import 'package:shop_app/models/register/register_response_model.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
-import 'package:shop_app/network/remote/login_api_service.dart';
+import 'package:shop_app/network/remote/auth_api_service.dart';
 
 import '../../../../constant.dart';
 import '../cubit/login_states.dart';
@@ -20,7 +20,7 @@ class LoginCubit extends Cubit<LoginStates> {
   }) async {
     emit(LoginLoadingState());
     try{
-      Response response= await LoginApiService.postData(path: LOGIN, data: loginModel.toMap());
+      Response response= await AuthApiService.postData(path: LOGIN, data: loginModel.toMap());
       RegisterResponseModel model = RegisterResponseModel.fromJson(response.data);
 
       if(model.status){

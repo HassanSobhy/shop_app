@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 import '../remote/dio_helper.dart';
 
-class LoginApiService {
+class AuthApiService {
   static Future<Response> postData({
     @required String path,
     @required Map<String, dynamic> data,

@@ -29,7 +29,7 @@ class RegisterChangePasswordVisibilityState extends RegisterState {
   const RegisterChangePasswordVisibilityState();
 }
 
-class RegisterNavigationToLoginScreenState extends RegisterState{
+class RegisterNavigationToLoginScreenState extends RegisterState {
   const RegisterNavigationToLoginScreenState();
 }
 
