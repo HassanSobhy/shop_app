@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(LoginLoadingState());
     try{
       Response response= await LoginApiService.postData(path: LOGIN, data: loginModel.toMap());
-      ResponseModel model = ResponseModel.fromJson(response.data);
+      RegisterResponseModel model = RegisterResponseModel.fromJson(response.data);
 
       if(model.status){
         PreferenceUtils.setData(userTokenKey, model.data.token);

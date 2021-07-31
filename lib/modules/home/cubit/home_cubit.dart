@@ -31,7 +31,7 @@ class HomeCubit extends Cubit<HomeStates> {
   Home home;
   CategoriesModel categoriesModel;
   FavoriteResponseModel favoriteResponseModel;
-  ResponseModel userDataModel;
+  RegisterResponseModel userDataModel;
   Favorite favorite;
   Map<int, bool> favorites = {};
 
@@ -141,7 +141,7 @@ class HomeCubit extends Cubit<HomeStates> {
         path: PROFILE,
         token: PreferenceUtils.getData(userTokenKey),
       );
-      userDataModel = ResponseModel.fromJson(response.data);
+      userDataModel = RegisterResponseModel.fromJson(response.data);
 
       if (userDataModel.status) {
         isGetProfile = true;
@@ -170,7 +170,7 @@ class HomeCubit extends Cubit<HomeStates> {
         },
         token: PreferenceUtils.getData(userTokenKey),
       );
-      userDataModel = ResponseModel.fromJson(response.data);
+      userDataModel = RegisterResponseModel.fromJson(response.data);
 
       if (userDataModel.status) {
         emit(HomeSuccessUpdateUserState());

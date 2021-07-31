@@ -21,7 +21,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     try {
       Response response = await LoginApiService.registerUser(
           path: REGISTER, data: registerModel.toMap(), lang: "en");
-      ResponseModel model = ResponseModel.fromJson(response.data);
+      RegisterResponseModel model = RegisterResponseModel.fromJson(response.data);
 
       if (model.status) {
         PreferenceUtils.setData(userTokenKey, model.data.token);
