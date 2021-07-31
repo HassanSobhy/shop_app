@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class RegisterModel {
   final String username;
   final String email;
