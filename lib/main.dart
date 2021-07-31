@@ -35,9 +35,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     isOnBoarding = PreferenceUtils.getData(onBoardingKey) ?? false;
     isUserToken = PreferenceUtils.getData(userTokenKey) != null ? true : false;
-    print(isOnBoarding);
-    print(isUserToken);
-
     super.initState();
   }
 
