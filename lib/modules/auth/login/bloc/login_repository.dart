@@ -33,15 +33,14 @@ class LoginRepository extends BaseLoginRepository {
         PreferenceUtils.setData(
             userTokenKey, model.loginResponseDataModel.token);
       } else {
-        print(model.message);
         _errorMessage = model.message;
         _loginState = LoginErrorState(_errorMessage);
-
       }
     } on DioError catch (e) {
       _errorMessage = AuthExceptionHandler.handleException(e);
       _loginState = LoginErrorState(_errorMessage);
-    };
+    }
+    ;
 
     return _loginState;
   }

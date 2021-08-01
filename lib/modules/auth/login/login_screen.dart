@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if(state is LoginInitialState){
+            if (state is LoginInitialState) {
               return initialWidget(context, state);
             } else {
               return initialWidget(context, state);
@@ -44,7 +44,6 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
 
   ///////////////////////////////////////////////////////////
   //////////////////// Widget methods ///////////////////////
@@ -59,24 +58,25 @@ class LoginScreen extends StatelessWidget {
           children: [
             Text(
               "Login",
-              style: Theme.of(context).textTheme.headline4.copyWith(
-                  fontWeight: FontWeight.bold, color: Colors.black),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
             ),
             Text("Login now to browse our hot offers"),
             SizedBox(height: 40),
-            buildEmailTextField(),
-            buildSizedBoxSeperator(),
-            buildPasswordTextField(context),
-            buildSizedBoxSeperator(),
-            buildSignInButton(state),
-            buildSizedBoxSeperator(),
-            buildDonotHaveAnAccountButton(context)
+            emailTextFieldWidget(),
+            sizedBoxSeparatorWidget(),
+            passwordTextFieldWidget(context),
+            sizedBoxSeparatorWidget(),
+            signInButtonWidget(state, context),
+            sizedBoxSeparatorWidget(),
+            doNotHaveAnAccountButtonWidget(context)
           ],
         ),
       ),
     );
   }
-
 
   Widget loadingWidget() {
     return Center(
@@ -84,9 +84,9 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSizedBoxSeperator() => SizedBox(height: 16);
+  Widget sizedBoxSeparatorWidget() => SizedBox(height: 16);
 
-  Widget buildEmailTextField() {
+  Widget emailTextFieldWidget() {
     return TextFormField(
       textInputAction: TextInputAction.next,
       controller: emailController,
@@ -102,7 +102,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPasswordTextField(BuildContext context) {
+  Widget passwordTextFieldWidget(BuildContext context) {
     return TextFormField(
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.text,
@@ -125,30 +125,22 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSignInButton(LoginState state) {
-    return ConditionalBuilder(
-      condition: state is! LoginLoadingState,
-      builder: (context) {
-        return Container(
-          height: 45,
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              LoginModel loginModel = LoginModel(
-                emailController.text.trim(),
-                passwordController.text.trim(),
-              );
-              userLogin(context, loginModel);
-            },
-            child: Text("LOGIN"),
-          ),
-        );
-      },
-      fallback: (context) => loadingWidget(),
-    );
+  Widget signInButtonWidget(LoginState state, BuildContext context) {
+    return state is! LoginLoadingState
+        ? Container(
+            height: 45,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                signIn(context);
+              },
+              child: Text("LOGIN"),
+            ),
+          )
+        : loadingWidget();
   }
 
-  Widget buildDonotHaveAnAccountButton(BuildContext context) {
+  Widget doNotHaveAnAccountButtonWidget(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -167,6 +159,14 @@ class LoginScreen extends StatelessWidget {
   /////////////////// Helper methods ////////////////////////
   ///////////////////////////////////////////////////////////
 
+  void signIn(BuildContext context) {
+    LoginModel loginModel = LoginModel(
+      emailController.text.trim(),
+      passwordController.text.trim(),
+    );
+    userLogin(context, loginModel);
+  }
+
   void changePasswordIconVisibility(BuildContext context) {
     LoginBloc.get(context).add(ChangePasswordVisibilityEvent());
   }
@@ -175,8 +175,8 @@ class LoginScreen extends StatelessWidget {
     LoginBloc.get(context).add(UserLoginEvent(loginModel));
   }
 
-  void navigateToHomeScreen(BuildContext context) {
-    Navigator.of(context)
+  Future<void> navigateToHomeScreen(BuildContext context) async {
+    await Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
@@ -188,7 +188,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void navigateToRegisterScreen(BuildContext context) async {
+  Future<void> navigateToRegisterScreen(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return RegisterScreen();
     }));
