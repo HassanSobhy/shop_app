@@ -78,7 +78,7 @@ class LoginScreen extends StatelessWidget {
   }
 
 
-  Widget buildLoadingState() {
+  Widget loadingWidget() {
     return Center(
       child: CircularProgressIndicator(),
     );
@@ -144,7 +144,7 @@ class LoginScreen extends StatelessWidget {
           ),
         );
       },
-      fallback: (context) => buildLoadingState(),
+      fallback: (context) => loadingWidget(),
     );
   }
 
