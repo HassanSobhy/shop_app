@@ -167,7 +167,7 @@ class LoginScreen extends StatelessWidget {
 
   void navigateToHomeScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+        .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
   void buildSnackBar(BuildContext context, String errorMessage) {
