@@ -23,8 +23,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is UserLoginEvent) {
       if (event.loginModel.email.isEmpty ||
           event.loginModel.password.isEmpty) {
-        print(event.loginModel.email.isEmpty);
-        print(event.loginModel.password.isEmpty);
         yield validateEmailAndPassword(event.loginModel);
       } else {
         yield validateEmailAndPassword(event.loginModel);
@@ -56,7 +54,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginChangePasswordVisibilityState changePasswordVisibility() {
     isPassword = !isPassword;
     suffix =
-        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
 
     return LoginChangePasswordVisibilityState();
   }
