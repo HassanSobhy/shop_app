@@ -29,13 +29,8 @@ class LoginScreen extends StatelessWidget {
             if (state is LoginSuccessState) {
               buildToastMessage(state.model.message, Colors.green);
               navigateToHomeScreen(context);
-            }
-            else if (state is LoginErrorState) {
+            } else if (state is LoginErrorState) {
               buildToastMessage(state.message, Colors.red);
-            }
-            else if (state is LoginEmailAndPasswordValidationState){
-              emailErrorMessage = state.emailMessage;
-              passwordErrorMessage =  state.passwordMessage;
             }
           },
           builder: (context, state) {
@@ -68,9 +63,6 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-
-
 
   ///////////////////////////////////////////////////////////
   //////////////////// Widget methods ///////////////////////
@@ -155,8 +147,7 @@ class LoginScreen extends StatelessWidget {
             onPressed: () => navigateToRegisterScreen(context),
             child: Text(
               "Register",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 14),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             )),
       ],
     );
@@ -203,8 +194,4 @@ class LoginScreen extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
-
-
-
 }

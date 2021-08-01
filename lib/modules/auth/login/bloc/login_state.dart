@@ -1,5 +1,3 @@
-
-
 import 'package:shop_app/models/login/login_response_model.dart';
 
 abstract class LoginState {
@@ -30,9 +28,10 @@ class LoginChangePasswordVisibilityState extends LoginState {
   const LoginChangePasswordVisibilityState();
 }
 
-class LoginEmailAndPasswordValidationState extends LoginState{
+class LoginEmailAndPasswordValidationState extends LoginState {
   final String emailMessage;
   final String passwordMessage;
-  const LoginEmailAndPasswordValidationState(this.emailMessage,this.passwordMessage);
-}
 
+  const LoginEmailAndPasswordValidationState(
+      this.emailMessage, this.passwordMessage);
+}
