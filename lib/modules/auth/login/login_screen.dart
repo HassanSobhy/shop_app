@@ -34,39 +34,49 @@ class LoginScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Login",
-                      style: Theme.of(context).textTheme.headline4.copyWith(
-                          fontWeight: FontWeight.bold, color: Colors.black),
-                    ),
-                    Text("Login now to browse our hot offers"),
-                    SizedBox(height: 40),
-                    buildEmailTextField(),
-                    buildSizedBoxSeperator(),
-                    buildPasswordTextField(context),
-                    buildSizedBoxSeperator(),
-                    buildSignInButton(state),
-                    buildSizedBoxSeperator(),
-                    buildDonotHaveAnAccountButton(context)
-                  ],
-                ),
-              ),
-            );
+            if(state is LoginInitialState){
+              return initialWidget(context, state);
+            } else {
+              return initialWidget(context, state);
+            }
           },
         ),
       ),
     );
   }
 
+
   ///////////////////////////////////////////////////////////
   //////////////////// Widget methods ///////////////////////
   ///////////////////////////////////////////////////////////
+
+  Widget initialWidget(BuildContext context, LoginInitialState state) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Login",
+              style: Theme.of(context).textTheme.headline4.copyWith(
+                  fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+            Text("Login now to browse our hot offers"),
+            SizedBox(height: 40),
+            buildEmailTextField(),
+            buildSizedBoxSeperator(),
+            buildPasswordTextField(context),
+            buildSizedBoxSeperator(),
+            buildSignInButton(state),
+            buildSizedBoxSeperator(),
+            buildDonotHaveAnAccountButton(context)
+          ],
+        ),
+      ),
+    );
+  }
+
 
   Widget buildLoadingState() {
     return Center(
