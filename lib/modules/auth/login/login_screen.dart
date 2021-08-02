@@ -4,15 +4,18 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+
 import 'package:shop_app/models/login/login_model.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_bloc.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_repository.dart';
+
 import 'package:shop_app/modules/auth/register/register_screen.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'bloc/login_event.dart';
 import 'bloc/login_state.dart';
 
 class LoginScreen extends StatelessWidget {
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String emailErrorMessage;
