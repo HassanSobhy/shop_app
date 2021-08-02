@@ -35,3 +35,7 @@ class LoginEmailAndPasswordValidationState extends LoginState {
   const LoginEmailAndPasswordValidationState(
       this.emailMessage, this.passwordMessage);
 }
+
+class LoginNavigationToRegisterScreenState extends LoginState {
+  const LoginNavigationToRegisterScreenState();
+}
