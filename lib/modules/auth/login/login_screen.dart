@@ -31,13 +31,17 @@ class LoginScreen extends StatelessWidget {
               navigateToHomeScreen(context);
             } else if (state is LoginErrorState) {
               buildToastMessage(state.message, Colors.red);
+            } else if (state is LoginNavigationToRegisterScreenState) {
+              navigateToRegisterScreen(context);
             }
           },
           builder: (context, state) {
             if (state is LoginInitialState) {
-              return initialWidget(context, state);
+              return initialWidget(context);
+            } else if (state is LoginLoadingState) {
+              return loadingWidget();
             } else {
-              return initialWidget(context, state);
+              return initialWidget(context);
             }
           },
         ),
@@ -49,7 +53,7 @@ class LoginScreen extends StatelessWidget {
   //////////////////// Widget methods ///////////////////////
   ///////////////////////////////////////////////////////////
 
-  Widget initialWidget(BuildContext context, LoginInitialState state) {
+  Widget initialWidget(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -69,7 +73,7 @@ class LoginScreen extends StatelessWidget {
             sizedBoxSeparatorWidget(),
             passwordTextFieldWidget(context),
             sizedBoxSeparatorWidget(),
-            signInButtonWidget(state, context),
+            signInButtonWidget(context),
             sizedBoxSeparatorWidget(),
             doNotHaveAnAccountButtonWidget(context)
           ],
@@ -125,19 +129,17 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget signInButtonWidget(LoginState state, BuildContext context) {
-    return state is! LoginLoadingState
-        ? Container(
-            height: 45,
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                signIn(context);
-              },
-              child: Text("LOGIN"),
-            ),
-          )
-        : loadingWidget();
+  Widget signInButtonWidget(BuildContext context) {
+    return Container(
+      height: 45,
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          signIn(context);
+        },
+        child: Text("LOGIN"),
+      ),
+    );
   }
 
   Widget doNotHaveAnAccountButtonWidget(BuildContext context) {
@@ -146,7 +148,8 @@ class LoginScreen extends StatelessWidget {
       children: [
         Text("Don't have an account?"),
         TextButton(
-            onPressed: () => navigateToRegisterScreen(context),
+            onPressed: () =>
+                LoginBloc.get(context).add(NavigationToRegisterScreenEvent()),
             child: Text(
               "Register",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
