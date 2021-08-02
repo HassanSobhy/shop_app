@@ -39,10 +39,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterChangePasswordVisibilityState changePasswordVisibility() {
     isPassword = !isPassword;
     suffix =
-    isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
 
-    return RegisterChangePasswordVisibilityState();
+    return const RegisterChangePasswordVisibilityState();
   }
-
-
 }

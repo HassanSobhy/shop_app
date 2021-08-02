@@ -26,7 +26,8 @@ class LoginScreen extends StatelessWidget {
             //Show success message
             buildToastMessage(state.model.message, Colors.green);
             // navigate to home screen.
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => HomeScreen()));
           } else if (state is LoginErrorState) {
             //buildSnackBar(context, state.message);
             //Show error message
@@ -35,7 +36,6 @@ class LoginScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            floatingActionButton: FloatingActionButton(onPressed: () {  },),
             appBar: AppBar(),
             body: Center(
               child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                         Text("Login now to browse our hot offers"),
                         SizedBox(height: 40),
                         TextFormField(
-                          textInputAction:TextInputAction.next,
+                          textInputAction: TextInputAction.next,
                           controller: emailController,
                           validator: (String value) {
                             if (value.isEmpty) {
@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         TextFormField(
-                          textInputAction:TextInputAction.done,
+                          textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.text,
                           obscureText: LoginCubit.get(context).isPassword,
                           controller: passwordController,

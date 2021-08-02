@@ -32,48 +32,51 @@ class RegisterScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildHeadLineText(context),
-                      const SizedBox(height: 40),
-                      buildUserNameTextField(),
-                      buildSizedBoxDivider(),
-                      buildEmailTextField(),
-                      buildSizedBoxDivider(),
-                      buildPasswordTextField(context),
-                      buildSizedBoxDivider(),
-                      buildPhoneTextField(),
-                      const SizedBox(height: 32),
-                      buildConditionalBuilder(state),
-                      buildSizedBoxDivider(),
-                      buildAlreadyHaveAnAccButton(context),
-                    ],
-                  ),
-                ),
-              ),
-            );
+            if (state is RegisterInitialState) {
+              return initialWidget(context);
+            } else if (state is RegisterLoadingState) {
+              return loadingWidget();
+            } else {
+              return initialWidget(context);
+            }
           },
         ),
       ),
     );
   }
 
-  ConditionalBuilder buildConditionalBuilder(RegisterState state) {
-    return ConditionalBuilder(
-      condition: state is! RegisterLoadingState,
-      builder: (context) {
-        return buildRegisterButton(context);
-      },
-      fallback: (context) => buildLoadingState(),
+  ///////////////////////////////////////////////////////////
+  //////////////////// Widget methods ///////////////////////
+  ///////////////////////////////////////////////////////////
+  Widget initialWidget(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              headLineTextWidget(context),
+              const SizedBox(height: 40),
+              userNameTextFieldWidget(),
+              sizedBoxDividerWidget(),
+              emailTextFieldWidget(),
+              sizedBoxDividerWidget(),
+              passwordTextFieldWidget(context),
+              sizedBoxDividerWidget(),
+              phoneTextFieldWidget(),
+              const SizedBox(height: 32),
+              registerButtonWidget(context),
+              sizedBoxDividerWidget(),
+              alreadyHaveAnAccButtonWidget(context),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  TextFormField buildUserNameTextField() {
+  Widget userNameTextFieldWidget() {
     return TextFormField(
       textInputAction: TextInputAction.next,
       controller: userNameController,
@@ -88,8 +91,9 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildHeadLineText(BuildContext context) {
+  Widget headLineTextWidget(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Register",
@@ -103,11 +107,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  ///////////////////////////////////////////////////////////
-  //////////////////// Widget methods ///////////////////////
-  ///////////////////////////////////////////////////////////
-
-  Widget buildAlreadyHaveAnAccButton(BuildContext context) {
+  Widget alreadyHaveAnAccButtonWidget(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -123,7 +123,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildRegisterButton(BuildContext context) {
+  Widget registerButtonWidget(BuildContext context) {
     return Container(
       height: 45,
       width: double.infinity,
@@ -142,7 +142,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPhoneTextField() {
+  Widget phoneTextFieldWidget() {
     return TextFormField(
       textInputAction: TextInputAction.done,
       controller: phoneController,
@@ -157,7 +157,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPasswordTextField(BuildContext context) {
+  Widget passwordTextFieldWidget(BuildContext context) {
     return TextFormField(
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.text,
@@ -174,7 +174,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildEmailTextField() {
+  Widget emailTextFieldWidget() {
     return TextFormField(
       textInputAction: TextInputAction.next,
       controller: emailController,
@@ -189,9 +189,9 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSizedBoxDivider() => const SizedBox(height: 16);
+  Widget sizedBoxDividerWidget() => const SizedBox(height: 16);
 
-  Widget buildLoadingState() {
+  Widget loadingWidget() {
     return const Center(
       child: CircularProgressIndicator(),
     );
