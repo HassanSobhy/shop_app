@@ -31,6 +31,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } else if (event is ChangePasswordVisibilityEvent) {
       yield changePasswordVisibility();
+    } else if (event is NavigationToRegisterScreenEvent) {
+      yield LoginNavigationToRegisterScreenState();
     }
   }
 

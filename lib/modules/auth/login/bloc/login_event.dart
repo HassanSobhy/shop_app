@@ -13,3 +13,7 @@ class UserLoginEvent extends LoginEvent {
 class ChangePasswordVisibilityEvent extends LoginEvent {
   const ChangePasswordVisibilityEvent();
 }
+
+class NavigationToRegisterScreenEvent extends LoginEvent {
+  const NavigationToRegisterScreenEvent();
+}

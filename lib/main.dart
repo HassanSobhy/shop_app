@@ -57,7 +57,10 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.deepOrange,
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: AppBarTheme(
-                color: Colors.white, elevation: 0, textTheme: TextTheme())),
+              color: Colors.white,
+              elevation: 0,
+              textTheme: TextTheme(),
+            )),
         home: isOnBoarding
             ? isUserToken
                 ? HomeScreen()
