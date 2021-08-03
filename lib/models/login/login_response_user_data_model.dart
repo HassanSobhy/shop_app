@@ -1,4 +1,4 @@
-class LoginResponseDataModel {
+class LoginResponseUserDataModel {
   int id;
   String name;
   String email;
@@ -8,7 +8,7 @@ class LoginResponseDataModel {
   int credit;
   String token;
 
-  LoginResponseDataModel.fromJson(Map<String, dynamic> json) {
+  LoginResponseUserDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
     name = json['name'] as String;
     email = json['email'] as String;
