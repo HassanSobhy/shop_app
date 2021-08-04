@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'package:shop_app/modules/auth/login/login_screen.dart';
+import 'package:shop_app/modules/auth/login/ui/screens/login_screen.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
 import '../../constant.dart';
 

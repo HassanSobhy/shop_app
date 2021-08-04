@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:shop_app/models/login/login_response_model.dart';
-import 'package:shop_app/modules/auth/login/login_screen.dart';
+import 'package:shop_app/modules/auth/login/ui/screens/login_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
