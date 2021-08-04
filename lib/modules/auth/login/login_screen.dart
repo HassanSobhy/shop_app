@@ -36,11 +36,11 @@ class LoginScreen extends StatelessWidget {
             },
             builder: (context, state) {
               if (state is LoginInitialState) {
-                return initialWidget(context);
+                return loginFormWidget(context);
               } else if (state is LoginLoadingState) {
                 return loadingWidget();
               } else {
-                return initialWidget(context);
+                return loginFormWidget(context);
               }
             },
           ),
@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
   //////////////////// Widget methods ///////////////////////
   ///////////////////////////////////////////////////////////
 
-  Widget initialWidget(BuildContext context) {
+  Widget loginFormWidget(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -65,8 +65,8 @@ class LoginScreen extends StatelessWidget {
                   .headline4
                   .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
             ),
-            Text("Login now to browse our hot offers"),
-            SizedBox(height: 40),
+            const Text("Login now to browse our hot offers"),
+            const SizedBox(height: 40),
             emailTextFieldWidget(),
             sizedBoxSeparatorWidget(),
             passwordTextFieldWidget(context),
@@ -81,12 +81,12 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget loadingWidget() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
-  Widget sizedBoxSeparatorWidget() => SizedBox(height: 16);
+  Widget sizedBoxSeparatorWidget() => const SizedBox(height: 16);
 
   Widget emailTextFieldWidget() {
     return TextFormField(
@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
       decoration: InputDecoration(
         labelText: "Email",
         errorText: emailErrorMessage,
-        prefixIcon: Icon(Icons.email_outlined),
+        prefixIcon: const Icon(Icons.email_outlined),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
       decoration: InputDecoration(
         labelText: "Password",
         errorText: passwordErrorMessage,
-        prefixIcon: Icon(Icons.lock_outline_rounded),
+        prefixIcon: const Icon(Icons.lock_outline_rounded),
         suffixIcon: IconButton(
           icon: Icon(LoginBloc.get(context).suffix),
           onPressed: () {
@@ -132,10 +132,8 @@ class LoginScreen extends StatelessWidget {
       height: 45,
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
-          signIn(context);
-        },
-        child: Text("LOGIN"),
+        onPressed: () => signIn(context),
+        child: const Text("LOGIN"),
       ),
     );
   }
@@ -144,11 +142,11 @@ class LoginScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Don't have an account?"),
+        const Text("Don't have an account?"),
         TextButton(
-            onPressed: () =>
-                LoginBloc.get(context).add(NavigationToRegisterScreenEvent()),
-            child: Text(
+            onPressed: () => LoginBloc.get(context)
+                .add(const NavigationToRegisterScreenEvent()),
+            child: const Text(
               "Register",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             )),
@@ -161,7 +159,7 @@ class LoginScreen extends StatelessWidget {
   ///////////////////////////////////////////////////////////
 
   void signIn(BuildContext context) {
-    LoginModel loginModel = LoginModel(
+    final LoginModel loginModel = LoginModel(
       emailController.text.trim(),
       passwordController.text.trim(),
     );
@@ -169,7 +167,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   void changePasswordIconVisibility(BuildContext context) {
-    LoginBloc.get(context).add(ChangePasswordVisibilityEvent());
+    LoginBloc.get(context).add(const ChangePasswordVisibilityEvent());
   }
 
   void userLogin(BuildContext context, LoginModel loginModel) {
@@ -177,14 +175,14 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> navigateToHomeScreen(BuildContext context) async {
-    await Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+    await Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 
   void buildSnackBar(BuildContext context, String errorMessage) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("$errorMessage"),
+        content: Text(errorMessage),
       ),
     );
   }
@@ -197,7 +195,7 @@ class LoginScreen extends StatelessWidget {
 
   void buildToastMessage(String message, Color color) {
     Fluttertoast.showToast(
-        msg: "$message",
+        msg: message,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 5,
