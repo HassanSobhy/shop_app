@@ -5,7 +5,7 @@ class AuthExceptionHandler {
     String errorMessage;
     switch (dioError.type) {
       case DioErrorType.cancel:
-        errorMessage = "Request to API server was cancelled.";
+        errorMessage = "Request to server was cancelled.";
         break;
       case DioErrorType.connectTimeout:
         errorMessage =
