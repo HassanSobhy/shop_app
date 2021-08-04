@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:shop_app/models/login/login_model.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_bloc.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_repository.dart';
+
 import 'package:shop_app/modules/auth/register/register_screen.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'bloc/login_event.dart';
