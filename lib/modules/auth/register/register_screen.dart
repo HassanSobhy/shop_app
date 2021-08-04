@@ -1,4 +1,3 @@
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,11 +32,11 @@ class RegisterScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is RegisterInitialState) {
-              return initialWidget(context);
+              return registerFormWidget(context);
             } else if (state is RegisterLoadingState) {
               return loadingWidget();
             } else {
-              return initialWidget(context);
+              return registerFormWidget(context);
             }
           },
         ),
@@ -48,7 +47,7 @@ class RegisterScreen extends StatelessWidget {
   ///////////////////////////////////////////////////////////
   //////////////////// Widget methods ///////////////////////
   ///////////////////////////////////////////////////////////
-  Widget initialWidget(BuildContext context) {
+  Widget registerFormWidget(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         child: Padding(
@@ -113,8 +112,7 @@ class RegisterScreen extends StatelessWidget {
       children: [
         const Text("Already have an account?"),
         TextButton(
-            onPressed: () => RegisterBloc.get(context)
-                .add(const NavigationToLoginScreenEvent()),
+            onPressed: () => addNavigationToLoginScreenEvent(context),
             child: const Text(
               "Log in",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
@@ -129,13 +127,7 @@ class RegisterScreen extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          final RegisterModel registerModel = RegisterModel(
-            username: userNameController.text.trim(),
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
-            phone: phoneController.text.trim(),
-          );
-          RegisterBloc.get(context).add(UserRegisterEvent(registerModel));
+          userRegister(context);
         },
         child: const Text("REGISTER"),
       ),
@@ -204,6 +196,19 @@ class RegisterScreen extends StatelessWidget {
   ///////////////////////////////////////////////////////////
   /////////////////// Helper methods ////////////////////////
   ///////////////////////////////////////////////////////////
+  void userRegister(BuildContext context) {
+    final RegisterModel registerModel = RegisterModel(
+      username: userNameController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      phone: phoneController.text.trim(),
+    );
+    RegisterBloc.get(context).add(UserRegisterEvent(registerModel));
+  }
+
+  void addNavigationToLoginScreenEvent(BuildContext context) {
+    RegisterBloc.get(context).add(const NavigationToLoginScreenEvent());
+  }
 
   Future<void> navigateToLoginScreen(BuildContext context) async {
     Navigator.of(context).pushReplacement(
