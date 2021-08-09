@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/login/login_model.dart';
 
 import 'package:shop_app/modules/auth/login/bloc/login_repository.dart';
+import 'package:shop_app/utils/validator.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
@@ -30,32 +31,45 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> handelLoginEvent(LoginModel loginModel) async* {
-    if (loginModel.email.isEmpty) {
-      yield LoginEmailValidationState("Email Is Empty");
-    } else {
-      if (loginModel.password.isEmpty) {
-        yield LoginPasswordValidationState("Password is Empty");
-      } else {
+    var emailState = validateEmail(loginModel.email);
+    if (emailState is LoginEmailFormatCorrectState) {
+      var passwordState = validatePassword(loginModel.password);
+      if (passwordState is LoginEmailFormatCorrectState) {
         yield const LoginLoadingState();
         yield await loginRepository.signInWithEmailAndPassword(loginModel);
+      } else {
+        yield passwordState;
       }
+    } else {
+      yield emailState;
     }
   }
 
-  String isEmailIsEmpty(String email) {
-    return email.isEmpty ? "Email can't be empty" : null;
+  LoginState validateEmail(String email) {
+    LoginState loginState;
+    final ValidationState validateState = Validator.validateEmail(email);
+
+    if (validateState == ValidationState.Empty) {
+      loginState = LoginEmailEmptyFormatState();
+    } else if (validateState == ValidationState.Formatting) {
+      loginState = LoginEmailValidFormatState();
+    } else {
+      loginState = LoginEmailFormatCorrectState();
+    }
+    return loginState;
   }
 
-  String isPasswordIsEmpty(String password) {
-    return password.isEmpty ? "Password can't be empty" : null;
-  }
-
-  LoginEmailAndPasswordValidationState validateEmailAndPassword(
-      LoginModel model) {
-    return LoginEmailAndPasswordValidationState(
-      isEmailIsEmpty(model.email),
-      isPasswordIsEmpty(model.password),
-    );
+  LoginState validatePassword(String password) {
+    LoginState loginState;
+    final ValidationState validateState = Validator.validatePassword(password);
+    if (validateState == ValidationState.Empty) {
+      loginState = LoginPasswordEmptyFormatState();
+    } else if (validateState == ValidationState.Formatting) {
+      loginState = LoginPasswordValidFormatState();
+    } else {
+      loginState = LoginPasswordFormatCorrectState();
+    }
+    return loginState;
   }
 
   LoginChangePasswordVisibilityState changePasswordVisibility() {

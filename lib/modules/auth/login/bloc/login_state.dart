@@ -28,25 +28,17 @@ class LoginChangePasswordVisibilityState extends LoginState {
   const LoginChangePasswordVisibilityState();
 }
 
-class LoginEmailAndPasswordValidationState extends LoginState {
-  final String emailMessage;
-  final String passwordMessage;
+class LoginEmailEmptyFormatState extends LoginState {}
 
-  const LoginEmailAndPasswordValidationState(
-      this.emailMessage, this.passwordMessage);
-}
+class LoginEmailValidFormatState extends LoginState {}
 
-class LoginEmailValidationState extends LoginState {
-  final String emailValidateText;
+class LoginEmailFormatCorrectState extends LoginState {}
 
-  LoginEmailValidationState(this.emailValidateText);
-}
+class LoginPasswordEmptyFormatState extends LoginState {}
 
-class LoginPasswordValidationState extends LoginState {
-  final String passwordValidateText;
+class LoginPasswordValidFormatState extends LoginState {}
 
-  LoginPasswordValidationState(this.passwordValidateText);
-}
+class LoginPasswordFormatCorrectState extends LoginState {}
 
 class LoginNavigationToRegisterScreenState extends LoginState {
   const LoginNavigationToRegisterScreenState();
