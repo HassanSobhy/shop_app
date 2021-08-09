@@ -8,7 +8,7 @@ part 'bottom_navigation_bar_state.dart';
 
 class BottomNavigationBarBloc
     extends Bloc<BottomNavigationBarEvent, BottomNavigationBarState> {
-  BottomNavigationBarBloc() : super(BottomNavigationBarInitialState());
+  BottomNavigationBarBloc() : super(HomeBottomNavigationInitialState());
 
   @override
   Stream<BottomNavigationBarState> mapEventToState(
