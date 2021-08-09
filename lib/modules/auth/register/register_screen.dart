@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:shop_app/models/register_model.dart';
-import 'package:shop_app/modules/auth/login/ui/screens/login_screen.dart';
+import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
 import 'package:shop_app/modules/auth/register/cubit/register_states.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'cubit/register_cubit.dart';
