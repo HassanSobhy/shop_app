@@ -26,7 +26,6 @@ dependencies:
   smooth_page_indicator: ^0.2.3
   dio: ^4.0.0
   flutter_bloc: ^7.0.1
-  bloc: ^7.0.0
   conditional_builder: ^1.0.2   #Not A Very Good To use Search for Best Solution
   fluttertoast: ^8.0.7
   shared_preferences: ^2.0.6
@@ -42,7 +41,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   import_sorter: ^4.6.0
   lint: ^1.5.3
 

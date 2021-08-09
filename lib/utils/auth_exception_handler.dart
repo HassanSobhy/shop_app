@@ -5,27 +5,31 @@ class AuthExceptionHandler {
     String errorMessage;
     switch (dioError.type) {
       case DioErrorType.cancel:
-        errorMessage = "Request to API server was cancelled.";
+        errorMessage = "Request to server was cancelled.";
         break;
       case DioErrorType.connectTimeout:
-        errorMessage = "Connection timeout with API server.";
+        errorMessage =
+            "Looks like the server is taking to long to respond, please try again in sometime.";
         break;
       case DioErrorType.other:
         errorMessage =
-            "Connection to API server failed due to internet connection.";
+            "Looks like you have an unstable network at the moment, please try again when network stabilizes.";
         break;
       case DioErrorType.receiveTimeout:
-        errorMessage = "Receive timeout in connection with API server.";
+        errorMessage =
+            "Looks like the server is taking to long to respond, please try again in sometime.";
         break;
       case DioErrorType.sendTimeout:
-        errorMessage = "Send timeout in connection with API server.";
+        errorMessage =
+            "Looks like the server is taking to long to respond, please try again in sometime.";
         break;
       case DioErrorType.response:
         errorMessage = _handleResponseError(
             dioError.response.statusCode, dioError.response.data);
         break;
       default:
-        errorMessage = "Something went wrong.";
+        errorMessage =
+            "Looks like the server is taking to long to respond, this can be caused by either poor connectivity or an error with our servers. Please try again in a while.";
     }
 
     return errorMessage;
