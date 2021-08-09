@@ -1,14 +1,15 @@
 part of 'bottom_navigation_bar_bloc.dart';
 
 @immutable
-abstract class BottomNavigationBarState {}
+abstract class HomeBottomNavigationBarState {}
 
-class HomeBottomNavigationInitialState extends BottomNavigationBarState {}
+class HomeBottomNavigationInitialState extends HomeBottomNavigationBarState {}
 
-class HomeBottomNavigationHomeState extends BottomNavigationBarState {}
+class HomeBottomNavigationHomeState extends HomeBottomNavigationBarState {}
 
-class HomeBottomNavigationCategoriesState extends BottomNavigationBarState {}
+class HomeBottomNavigationCategoriesState extends HomeBottomNavigationBarState {
+}
 
-class HomeBottomNavigationFavoritesState extends BottomNavigationBarState {}
+class HomeBottomNavigationFavoritesState extends HomeBottomNavigationBarState {}
 
-class HomeBottomNavigationSettingsState extends BottomNavigationBarState {}
+class HomeBottomNavigationSettingsState extends HomeBottomNavigationBarState {}
