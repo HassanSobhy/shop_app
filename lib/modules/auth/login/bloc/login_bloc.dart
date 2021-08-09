@@ -31,9 +31,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> handelLoginEvent(LoginModel loginModel) async* {
-    var emailState = validateEmail(loginModel.email);
+    final LoginState emailState = validateEmail(loginModel.email);
     if (emailState is LoginEmailFormatCorrectState) {
-      var passwordState = validatePassword(loginModel.password);
+      final LoginState passwordState = validatePassword(loginModel.password);
       if (passwordState is LoginEmailFormatCorrectState) {
         yield const LoginLoadingState();
         yield await loginRepository.signInWithEmailAndPassword(loginModel);
