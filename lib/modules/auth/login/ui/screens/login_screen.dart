@@ -15,8 +15,8 @@ import '../../bloc/login_state.dart';
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String emailErrorMessage;
-  String passwordErrorMessage;
+  String emailValidateText;
+  String passwordValidateText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +37,17 @@ class LoginScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is LoginInitialState) {
-              return initialWidget(context);
+              return loginFormWidget(context);
             } else if (state is LoginLoadingState) {
               return loadingWidget();
+            } else if (state is LoginEmailValidationState) {
+              return loginFormWidget(context,
+                  emailValidateText: state.emailValidateText);
+            } else if (state is LoginPasswordValidationState) {
+              return loginFormWidget(context,
+                  passwordValidateText: state.passwordValidateText);
             } else {
-              return initialWidget(context);
+              return loginFormWidget(context);
             }
           },
         ),
@@ -53,7 +59,8 @@ class LoginScreen extends StatelessWidget {
   //////////////////// Widget methods ///////////////////////
   ///////////////////////////////////////////////////////////
 
-  Widget initialWidget(BuildContext context) {
+  Widget loginFormWidget(BuildContext context,
+      {String emailValidateText, String passwordValidateText}) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -69,9 +76,9 @@ class LoginScreen extends StatelessWidget {
             ),
             Text("Login now to browse our hot offers"),
             SizedBox(height: 40),
-            emailTextFieldWidget(),
+            emailTextFieldWidget(emailValidateText),
             sizedBoxSeparatorWidget(),
-            passwordTextFieldWidget(context),
+            passwordTextFieldWidget(context, passwordValidateText),
             sizedBoxSeparatorWidget(),
             signInButtonWidget(context),
             sizedBoxSeparatorWidget(),
@@ -90,14 +97,14 @@ class LoginScreen extends StatelessWidget {
 
   Widget sizedBoxSeparatorWidget() => SizedBox(height: 16);
 
-  Widget emailTextFieldWidget() {
+  Widget emailTextFieldWidget(String emailValidateText) {
     return TextFormField(
       textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: "Email",
-        errorText: emailErrorMessage,
+        errorText: emailValidateText,
         prefixIcon: Icon(Icons.email_outlined),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -106,7 +113,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget passwordTextFieldWidget(BuildContext context) {
+  Widget passwordTextFieldWidget(
+      BuildContext context, String passwordValidateText) {
     return TextFormField(
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.text,
@@ -114,7 +122,7 @@ class LoginScreen extends StatelessWidget {
       controller: passwordController,
       decoration: InputDecoration(
         labelText: "Password",
-        errorText: passwordErrorMessage,
+        errorText: passwordValidateText,
         prefixIcon: Icon(Icons.lock_outline_rounded),
         suffixIcon: IconButton(
           icon: Icon(LoginBloc.get(context).suffix),

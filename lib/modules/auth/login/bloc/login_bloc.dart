@@ -21,18 +21,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is UserLoginEvent) {
-      if (event.loginModel.email.isEmpty || event.loginModel.password.isEmpty) {
-        yield validateEmailAndPassword(event.loginModel);
-      } else {
-        yield validateEmailAndPassword(event.loginModel);
-        yield LoginLoadingState();
-        yield await loginRepository
-            .signInWithEmailAndPassword(event.loginModel);
-      }
+      yield* handelLoginEvent(event.loginModel);
     } else if (event is ChangePasswordVisibilityEvent) {
       yield changePasswordVisibility();
     } else if (event is NavigationToRegisterScreenEvent) {
-      yield LoginNavigationToRegisterScreenState();
+      yield const LoginNavigationToRegisterScreenState();
+    }
+  }
+
+  Stream<LoginState> handelLoginEvent(LoginModel loginModel) async* {
+    if (loginModel.email.isEmpty) {
+      yield LoginEmailValidationState("Email Is Empty");
+    } else {
+      if (loginModel.password.isEmpty) {
+        yield LoginPasswordValidationState("Password is Empty");
+      } else {
+        yield const LoginLoadingState();
+        yield await loginRepository.signInWithEmailAndPassword(loginModel);
+      }
     }
   }
 
