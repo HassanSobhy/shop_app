@@ -5,7 +5,7 @@ abstract class HomeBottomNavigationBarState {}
 
 class HomeBottomNavigationInitialState extends HomeBottomNavigationBarState {}
 
-class HomeBottomNavigationHomeState extends HomeBottomNavigationBarState {}
+class HomeBottomNavigationProductsState extends HomeBottomNavigationBarState {}
 
 class HomeBottomNavigationCategoriesState extends HomeBottomNavigationBarState {
 }
