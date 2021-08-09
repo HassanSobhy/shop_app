@@ -52,7 +52,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (validateState == ValidationState.Empty) {
       loginState = LoginEmailEmptyFormatState();
     } else if (validateState == ValidationState.Formatting) {
-      loginState = LoginEmailValidFormatState();
+      loginState = LoginEmailInvalidFormatState();
     } else {
       loginState = LoginEmailFormatCorrectState();
     }
@@ -65,7 +65,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (validateState == ValidationState.Empty) {
       loginState = LoginPasswordEmptyFormatState();
     } else if (validateState == ValidationState.Formatting) {
-      loginState = LoginPasswordValidFormatState();
+      loginState = LoginPasswordInvalidFormatState();
     } else {
       loginState = LoginPasswordFormatCorrectState();
     }

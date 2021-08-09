@@ -30,13 +30,13 @@ class LoginChangePasswordVisibilityState extends LoginState {
 
 class LoginEmailEmptyFormatState extends LoginState {}
 
-class LoginEmailValidFormatState extends LoginState {}
+class LoginEmailInvalidFormatState extends LoginState {}
 
 class LoginEmailFormatCorrectState extends LoginState {}
 
 class LoginPasswordEmptyFormatState extends LoginState {}
 
-class LoginPasswordValidFormatState extends LoginState {}
+class LoginPasswordInvalidFormatState extends LoginState {}
 
 class LoginPasswordFormatCorrectState extends LoginState {}
 
