@@ -1,19 +1,33 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bottom_navigation_bar_event.dart';
+
 part 'bottom_navigation_bar_state.dart';
 
 class BottomNavigationBarBloc
-    extends Bloc<BottomNavigationBarEvent, BottomNavigationBarState> {
+    extends Bloc<BottomNavigationBarEvent, HomeBottomNavigationBarState> {
   BottomNavigationBarBloc() : super(HomeBottomNavigationInitialState());
 
+  static BottomNavigationBarBloc get(BuildContext context) =>
+      BlocProvider.of(context);
+
   @override
-  Stream<BottomNavigationBarState> mapEventToState(
+  Stream<HomeBottomNavigationBarState> mapEventToState(
     BottomNavigationBarEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is NavigationToProductScreenEvent) {
+      yield HomeBottomNavigationProductsState(event.index);
+    } else if (event is NavigationToCategoriesScreenEvent) {
+      yield HomeBottomNavigationCategoriesState(event.index);
+    } else if (event is NavigationToFavoritesScreenEvent) {
+      yield HomeBottomNavigationFavoritesState(event.index);
+    } else if (event is NavigationToSettingsScreenEvent) {
+      yield HomeBottomNavigationSettingsState(event.index);
+    }
   }
 }
