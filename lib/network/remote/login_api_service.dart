@@ -1,9 +1,19 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../remote/dio_helper.dart';
+import 'package:dio/dio.dart';
+import 'package:shop_app/network/remote/dio_helper.dart';
 
 class LoginApiService {
+  static Future<Response> signInWithEmailAndPassword(
+      {@required String path,
+      @required Map<String, dynamic> data,
+      @required String lang}) async {
+    DioHelper.dio.options.headers = {
+      'lang': lang,
+    };
+    return DioHelper.dio.post(path, data: data);
+  }
+
   static Future<Response> postData({
     @required String path,
     @required Map<String, dynamic> data,
@@ -28,5 +38,4 @@ class LoginApiService {
     };
     return DioHelper.dio.post(path, data: data);
   }
-
 }

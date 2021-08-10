@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/network/end_points.dart';
 
+import 'package:dio/dio.dart';
+
+import 'package:shop_app/network/end_points.dart';
 import 'dio_helper.dart';
 
 class HomeApiService {
