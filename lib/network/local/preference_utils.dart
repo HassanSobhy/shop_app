@@ -1,7 +1,17 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_app/network/local/pref_keys.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class PreferenceUtils {
   static SharedPreferences _prefsInstance;
+
+  static Future<void> setLang(String data) async {
+    return _prefsInstance.setString(PrefKeys.LANG, data);
+  }
+
+  static Future<String> getLang() async {
+    return _prefsInstance.getString(PrefKeys.LANG);
+  }
 
   static Future<SharedPreferences> get _instance async =>
       _prefsInstance ??= await SharedPreferences.getInstance();
@@ -30,8 +40,7 @@ class PreferenceUtils {
     }
   }
 
-
-  static Future<bool> removeData(String key) async{
+  static Future<bool> removeData(String key) async {
     return await _prefsInstance.remove(key);
   }
 }
