@@ -2,56 +2,75 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:shop_app/models/login/login_model.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_bloc.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_repository.dart';
 
 import 'package:shop_app/modules/auth/register/register_screen.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
-import 'bloc/login_event.dart';
-import 'bloc/login_state.dart';
+import '../../bloc/login_event.dart';
+import '../../bloc/login_state.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String emailErrorMessage;
-  String passwordErrorMessage;
+  String emailValidateText;
+  String passwordValidateText;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginBloc>(
-        create: (context) => LoginBloc(LoginRepository()),
-        child: Scaffold(
-          appBar: AppBar(),
-          body: BlocConsumer<LoginBloc, LoginState>(
-            listener: (context, state) {
-              if (state is LoginSuccessState) {
-                buildToastMessage(state.model.message, Colors.green);
-                navigateToHomeScreen(context);
-              } else if (state is LoginErrorState) {
-                buildToastMessage(state.message, Colors.red);
-              } else if (state is LoginNavigationToRegisterScreenState) {
-                navigateToRegisterScreen(context);
-              }
-            },
-            builder: (context, state) {
-              if (state is LoginInitialState) {
-                return loginFormWidget(context);
-              } else if (state is LoginLoadingState) {
-                return loadingWidget();
-              } else {
-                return loginFormWidget(context);
-              }
-            },
-          ),
-        ));
+      create: (context) => LoginBloc(LoginRepository()),
+      child: Scaffold(
+        appBar: AppBar(),
+        body: BlocConsumer<LoginBloc, LoginState>(
+          listener: (context, state) {
+            if (state is LoginSuccessState) {
+              buildToastMessage(state.model.message, Colors.green);
+              navigateToHomeScreen(context);
+            } else if (state is LoginErrorState) {
+              buildToastMessage(state.message, Colors.red);
+            } else if (state is LoginNavigationToRegisterScreenState) {
+              navigateToRegisterScreen(context);
+            }
+          },
+          builder: (context, state) {
+            if (state is LoginInitialState) {
+              return loginFormWidget(context);
+            } else if (state is LoginLoadingState) {
+              return loadingWidget();
+            } else if (state is LoginEmailEmptyFormatState) {
+              return loginFormWidget(context,
+                  emailValidateText: "Email is empty");
+            } else if (state is LoginEmailInvalidFormatState) {
+              return loginFormWidget(context,
+                  emailValidateText: "Email is invalid");
+            } else if (state is LoginEmailFormatCorrectState) {
+              return loginFormWidget(context);
+            } else if (state is LoginPasswordEmptyFormatState) {
+              return loginFormWidget(context,
+                  passwordValidateText: "Password is empty");
+            } else if (state is LoginPasswordInvalidFormatState) {
+              return loginFormWidget(context,
+                  passwordValidateText: "Password is invalid");
+            } else if (state is LoginPasswordFormatCorrectState) {
+              return loginFormWidget(context);
+            } else {
+              return loginFormWidget(context);
+            }
+          },
+        ),
+      ),
+    );
   }
 
   ///////////////////////////////////////////////////////////
   //////////////////// Widget methods ///////////////////////
   ///////////////////////////////////////////////////////////
 
-  Widget loginFormWidget(BuildContext context) {
+  Widget loginFormWidget(BuildContext context,
+      {String emailValidateText, String passwordValidateText}) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -65,11 +84,11 @@ class LoginScreen extends StatelessWidget {
                   .headline4
                   .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
             ),
-            const Text("Login now to browse our hot offers"),
-            const SizedBox(height: 40),
-            emailTextFieldWidget(),
+            Text("Login now to browse our hot offers"),
+            SizedBox(height: 40),
+            emailTextFieldWidget(emailValidateText),
             sizedBoxSeparatorWidget(),
-            passwordTextFieldWidget(context),
+            passwordTextFieldWidget(context, passwordValidateText),
             sizedBoxSeparatorWidget(),
             signInButtonWidget(context),
             sizedBoxSeparatorWidget(),
@@ -81,22 +100,22 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget loadingWidget() {
-    return const Center(
+    return Center(
       child: CircularProgressIndicator(),
     );
   }
 
-  Widget sizedBoxSeparatorWidget() => const SizedBox(height: 16);
+  Widget sizedBoxSeparatorWidget() => SizedBox(height: 16);
 
-  Widget emailTextFieldWidget() {
+  Widget emailTextFieldWidget(String emailValidateText) {
     return TextFormField(
       textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: "Email",
-        errorText: emailErrorMessage,
-        prefixIcon: const Icon(Icons.email_outlined),
+        errorText: emailValidateText,
+        prefixIcon: Icon(Icons.email_outlined),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -104,7 +123,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget passwordTextFieldWidget(BuildContext context) {
+  Widget passwordTextFieldWidget(
+      BuildContext context, String passwordValidateText) {
     return TextFormField(
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.text,
@@ -112,8 +132,8 @@ class LoginScreen extends StatelessWidget {
       controller: passwordController,
       decoration: InputDecoration(
         labelText: "Password",
-        errorText: passwordErrorMessage,
-        prefixIcon: const Icon(Icons.lock_outline_rounded),
+        errorText: passwordValidateText,
+        prefixIcon: Icon(Icons.lock_outline_rounded),
         suffixIcon: IconButton(
           icon: Icon(LoginBloc.get(context).suffix),
           onPressed: () {
@@ -132,8 +152,10 @@ class LoginScreen extends StatelessWidget {
       height: 45,
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => signIn(context),
-        child: const Text("LOGIN"),
+        onPressed: () {
+          signIn(context);
+        },
+        child: Text("LOGIN"),
       ),
     );
   }
@@ -142,11 +164,11 @@ class LoginScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have an account?"),
+        Text("Don't have an account?"),
         TextButton(
-            onPressed: () => LoginBloc.get(context)
-                .add(const NavigationToRegisterScreenEvent()),
-            child: const Text(
+            onPressed: () =>
+                LoginBloc.get(context).add(NavigationToRegisterScreenEvent()),
+            child: Text(
               "Register",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             )),
@@ -159,7 +181,7 @@ class LoginScreen extends StatelessWidget {
   ///////////////////////////////////////////////////////////
 
   void signIn(BuildContext context) {
-    final LoginModel loginModel = LoginModel(
+    LoginModel loginModel = LoginModel(
       emailController.text.trim(),
       passwordController.text.trim(),
     );
@@ -167,7 +189,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   void changePasswordIconVisibility(BuildContext context) {
-    LoginBloc.get(context).add(const ChangePasswordVisibilityEvent());
+    LoginBloc.get(context).add(ChangePasswordVisibilityEvent());
   }
 
   void userLogin(BuildContext context, LoginModel loginModel) {
@@ -175,14 +197,14 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> navigateToHomeScreen(BuildContext context) async {
-    await Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()));
+    await Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
   void buildSnackBar(BuildContext context, String errorMessage) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(errorMessage),
+        content: Text("$errorMessage"),
       ),
     );
   }
@@ -195,7 +217,7 @@ class LoginScreen extends StatelessWidget {
 
   void buildToastMessage(String message, Color color) {
     Fluttertoast.showToast(
-        msg: message,
+        msg: "$message",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 5,
