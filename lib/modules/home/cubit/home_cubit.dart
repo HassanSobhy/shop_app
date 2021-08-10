@@ -1,18 +1,16 @@
+import 'package:flutter/material.dart';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shop_app/constant.dart';
 import 'package:shop_app/models/category_models/categories_model.dart';
 import 'package:shop_app/models/favorites_models/favorite.dart';
 import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
 import 'package:shop_app/models/home.dart';
 import 'package:shop_app/models/response_model.dart';
-import 'package:shop_app/modules/categories/categories_screen.dart';
-import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
-import 'package:shop_app/modules/products/products_screen.dart';
-import 'package:shop_app/modules/settings/settings_screen.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
 import 'package:shop_app/network/remote/home_api_service.dart';
@@ -27,25 +25,12 @@ class HomeCubit extends Cubit<HomeStates> {
   bool isGetFavorites = false;
   bool isGetProfile = false;
 
-  int currentIndex = 0;
   Home home;
   CategoriesModel categoriesModel;
   FavoriteResponseModel favoriteResponseModel;
   ResponseModel userDataModel;
   Favorite favorite;
   Map<int, bool> favorites = {};
-
-  List<Widget> screens = [
-    ProductsScreen(),
-    CategoriesScreen(),
-    FavoritesScreen(),
-    SettingsScreen(),
-  ];
-
-  void changeBottomNavIndex(int index) {
-    currentIndex = index;
-    emit(HomeChangeBottomNavState());
-  }
 
   Future<void> getHomeData() async {
     emit(HomeLoadingState());
