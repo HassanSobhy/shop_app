@@ -5,11 +5,26 @@ abstract class HomeBottomNavigationBarState {}
 
 class HomeBottomNavigationInitialState extends HomeBottomNavigationBarState {}
 
-class HomeBottomNavigationProductsState extends HomeBottomNavigationBarState {}
+class HomeBottomNavigationProductsState extends HomeBottomNavigationBarState {
+  final int index;
 
-class HomeBottomNavigationCategoriesState extends HomeBottomNavigationBarState {
+  HomeBottomNavigationProductsState(this.index);
 }
 
-class HomeBottomNavigationFavoritesState extends HomeBottomNavigationBarState {}
+class HomeBottomNavigationCategoriesState extends HomeBottomNavigationBarState {
+  final int index;
 
-class HomeBottomNavigationSettingsState extends HomeBottomNavigationBarState {}
+  HomeBottomNavigationCategoriesState(this.index);
+}
+
+class HomeBottomNavigationFavoritesState extends HomeBottomNavigationBarState {
+  final int index;
+
+  HomeBottomNavigationFavoritesState(this.index);
+}
+
+class HomeBottomNavigationSettingsState extends HomeBottomNavigationBarState {
+  final int index;
+
+  HomeBottomNavigationSettingsState(this.index);
+}
