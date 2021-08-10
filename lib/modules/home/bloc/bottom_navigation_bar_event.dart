@@ -3,10 +3,26 @@ part of 'bottom_navigation_bar_bloc.dart';
 @immutable
 abstract class BottomNavigationBarEvent {}
 
-class NavigationToProductScreenEvent extends BottomNavigationBarEvent {}
+class NavigationToProductScreenEvent extends BottomNavigationBarEvent {
+  final int index;
 
-class NavigationToCategoriesScreenEvent extends BottomNavigationBarEvent {}
+  NavigationToProductScreenEvent(this.index);
+}
 
-class NavigationToFavoritesScreenEvent extends BottomNavigationBarEvent {}
+class NavigationToCategoriesScreenEvent extends BottomNavigationBarEvent {
+  final int index;
 
-class NavigationToSettingsScreenEvent extends BottomNavigationBarEvent {}
+  NavigationToCategoriesScreenEvent(this.index);
+}
+
+class NavigationToFavoritesScreenEvent extends BottomNavigationBarEvent {
+  final int index;
+
+  NavigationToFavoritesScreenEvent(this.index);
+}
+
+class NavigationToSettingsScreenEvent extends BottomNavigationBarEvent {
+  final int index;
+
+  NavigationToSettingsScreenEvent(this.index);
+}
