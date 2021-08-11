@@ -33,16 +33,26 @@ class RegisterNavigationToLoginScreenState extends RegisterState {
   const RegisterNavigationToLoginScreenState();
 }
 
-class RegisterFormValidationState extends RegisterState {
-  final String userNameMessage;
-  final String emailMessage;
-  final String passwordMessage;
-  final String phoneMessage;
+class RegisterUsernameEmptyFormatState extends RegisterState {}
 
-  const RegisterFormValidationState(
-    this.userNameMessage,
-    this.emailMessage,
-    this.passwordMessage,
-    this.phoneMessage,
-  );
-}
+class RegisterUsernameInvalidFormatState extends RegisterState {}
+
+class RegisterUsernameFormatCorrectState extends RegisterState {}
+
+class RegisterEmailEmptyFormatState extends RegisterState {}
+
+class RegisterEmailInvalidFormatState extends RegisterState {}
+
+class RegisterEmailFormatCorrectState extends RegisterState {}
+
+class RegisterPasswordEmptyFormatState extends RegisterState {}
+
+class RegisterPasswordInvalidFormatState extends RegisterState {}
+
+class RegisterPasswordFormatCorrectState extends RegisterState {}
+
+class RegisterPhoneEmptyFormatState extends RegisterState {}
+
+class RegisterPhoneInvalidFormatState extends RegisterState {}
+
+class RegisterPhoneFormatCorrectState extends RegisterState {}
