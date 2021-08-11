@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:shop_app/modules/auth/login/login_screen.dart';
 import 'package:shop_app/modules/home/bloc/bottom_navigation_bar_bloc.dart';
+import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'package:shop_app/modules/on_boarding/on_boarding_screen.dart';
@@ -36,9 +35,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     isOnBoarding = PreferenceUtils.getData(onBoardingKey) ?? false;
     isUserToken = PreferenceUtils.getData(userTokenKey) != null ? true : false;
-    print(isOnBoarding);
-    print(isUserToken);
-
     super.initState();
   }
 
@@ -68,7 +64,10 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.deepOrange,
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: AppBarTheme(
-                color: Colors.white, elevation: 0, textTheme: TextTheme())),
+              color: Colors.white,
+              elevation: 0,
+              textTheme: TextTheme(),
+            )),
         home: isOnBoarding
             ? isUserToken
                 ? HomeScreen()

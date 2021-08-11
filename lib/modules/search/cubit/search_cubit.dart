@@ -1,6 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shop_app/models/search_model.dart';
 import 'package:shop_app/modules/search/cubit/search_states.dart';
 import 'package:shop_app/network/end_points.dart';
