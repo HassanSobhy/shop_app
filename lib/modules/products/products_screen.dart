@@ -22,7 +22,7 @@ class ProductsScreen extends StatelessWidget {
             buildToastMessage(message, Colors.green);
           } else {
             buildToastMessage(message, Colors.red);
-            }
+          }
         }
       },
       builder: (context, state) {

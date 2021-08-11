@@ -11,16 +11,16 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return ListView.separated(
           separatorBuilder: (context, index) {
             return buildListViewDivider();
           },
           itemBuilder: (context, index) {
-            return buildFavListItem(HomeCubit.get(context).favorite.data.productData[index].product,context);
+            return buildFavListItem(
+                HomeCubit.get(context).favorite.data.productData[index].product,
+                context);
           },
           itemCount: HomeCubit.get(context).favorite.data.productData.length,
         );
@@ -28,7 +28,7 @@ class FavoritesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildFavListItem(Product product,BuildContext context) {
+  Widget buildFavListItem(Product product, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
@@ -98,13 +98,16 @@ class FavoritesScreen extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           //ShopCubit.get(context).changeFavorites(model.product.id);
-                          FavoriteModel model = FavoriteModel(productId: product.id);
+                          FavoriteModel model =
+                              FavoriteModel(productId: product.id);
                           HomeCubit.get(context).changeFavorite(model.toMap());
                         },
                         icon: CircleAvatar(
                           radius: 15.0,
                           backgroundColor:
-                          HomeCubit.get(context).favorites[product.id] ? Colors.deepOrange : Colors.grey,
+                              HomeCubit.get(context).favorites[product.id]
+                                  ? Colors.deepOrange
+                                  : Colors.grey,
                           child: Icon(
                             Icons.favorite_border,
                             size: 14.0,
@@ -124,6 +127,9 @@ class FavoritesScreen extends StatelessWidget {
   }
 
   Widget buildListViewDivider() {
-    return Divider(thickness: 1, color: Colors.grey,);
+    return Divider(
+      thickness: 1,
+      color: Colors.grey,
+    );
   }
 }

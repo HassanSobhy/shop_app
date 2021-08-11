@@ -30,8 +30,7 @@ class PreferenceUtils {
     }
   }
 
-
-  static Future<bool> removeData(String key) async{
+  static Future<bool> removeData(String key) async {
     return await _prefsInstance.remove(key);
   }
 }

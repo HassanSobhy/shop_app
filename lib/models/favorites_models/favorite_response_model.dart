@@ -1,12 +1,9 @@
-class FavoriteResponseModel{
+class FavoriteResponseModel {
   bool status;
   String message;
 
-
-  FavoriteResponseModel.fromJson(Map<String,dynamic> json){
-
+  FavoriteResponseModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
   }
-
 }

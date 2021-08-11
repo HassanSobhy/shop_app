@@ -10,7 +10,6 @@ class Favorite {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
-
 }
 
 class Data {
@@ -29,22 +28,22 @@ class Data {
 
   Data(
       {this.currentPage,
-        this.productData,
-        this.firstPageUrl,
-        this.from,
-        this.lastPage,
-        this.lastPageUrl,
-        this.nextPageUrl,
-        this.path,
-        this.perPage,
-        this.prevPageUrl,
-        this.to,
-        this.total});
+      this.productData,
+      this.firstPageUrl,
+      this.from,
+      this.lastPage,
+      this.lastPageUrl,
+      this.nextPageUrl,
+      this.path,
+      this.perPage,
+      this.prevPageUrl,
+      this.to,
+      this.total});
 
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      productData =  [];
+      productData = [];
       json['data'].forEach((v) {
         productData.add(new ProductData.fromJson(v));
       });
@@ -60,8 +59,6 @@ class Data {
     to = json['to'];
     total = json['total'];
   }
-
-
 }
 
 class ProductData {
@@ -73,7 +70,7 @@ class ProductData {
   ProductData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     product =
-    json['product'] != null ? new Product.fromJson(json['product']) : null;
+        json['product'] != null ? new Product.fromJson(json['product']) : null;
   }
 }
 
@@ -88,12 +85,12 @@ class Product {
 
   Product(
       {this.id,
-        this.price,
-        this.oldPrice,
-        this.discount,
-        this.image,
-        this.name,
-        this.description});
+      this.price,
+      this.oldPrice,
+      this.discount,
+      this.image,
+      this.name,
+      this.description});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,5 +101,4 @@ class Product {
     name = json['name'];
     description = json['description'];
   }
-
 }

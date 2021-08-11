@@ -15,6 +15,6 @@ class ChangePasswordVisibilityEvent extends RegisterEvent {
   const ChangePasswordVisibilityEvent();
 }
 
-class NavigationToLoginScreenEvent extends RegisterEvent{
+class NavigationToLoginScreenEvent extends RegisterEvent {
   const NavigationToLoginScreenEvent();
 }

@@ -36,6 +36,4 @@ class Product {
     inFavorites = json['in_favorites'];
     inCart = json['in_cart'];
   }
-
-
 }

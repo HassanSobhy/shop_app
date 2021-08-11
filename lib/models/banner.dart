@@ -11,13 +11,11 @@ class Banner {
     this.category,
   });
 
-
   //Convert from JSON To Banner Model Model
   Banner.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     image = json['image'];
-    category = json['category'] != null
-        ? Category.fromJson(json['category'])
-        : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
   }
 }

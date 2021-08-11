@@ -16,23 +16,19 @@ class SearchCubit extends Cubit<SearchStates> {
 
   void searchProducts(String searchText) async {
     emit(SearchLoadingState());
-    try{
+    try {
       Response response = await HomeApiService.searchData(path: SEARCH, data: {
         "text": searchText,
       });
       searchModel = SearchModel.fromJson(response.data);
-      if(searchModel.status){
+      if (searchModel.status) {
         emit(SearchSuccessState());
       } else {
         emit(SearchErrorState());
       }
-    } catch(e){
-
+    } catch (e) {
       print(e.toString());
       emit(SearchErrorState());
-
     }
-
-
   }
 }

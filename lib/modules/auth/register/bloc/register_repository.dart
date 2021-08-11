@@ -25,15 +25,16 @@ class RegisterRepository extends BaseRegisterRepository {
         data: registerModel.toMap(),
         lang: _language,
       );
-      final RegisterResponseModel model = RegisterResponseModel.fromJson(response.data);
-      if(model.status){
+      final RegisterResponseModel model =
+          RegisterResponseModel.fromJson(response.data);
+      if (model.status) {
         _registerState = RegisterSuccessState(model);
-        PreferenceUtils.setData(userTokenKey, model.registerUserDataModel.token);
+        PreferenceUtils.setData(
+            userTokenKey, model.registerUserDataModel.token);
       } else {
         _errorMessage = model.message;
         _registerState = RegisterErrorState(_errorMessage);
       }
-
     } on DioError catch (e) {
       _errorMessage = AuthExceptionHandler.handleException(e);
       _registerState = RegisterErrorState(_errorMessage);
