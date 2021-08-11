@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/models/register/register_model.dart';
-import 'package:shop_app/modules/auth/login/login_screen.dart';
+import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
 import 'package:shop_app/modules/auth/register/bloc/register_bloc.dart';
 import 'package:shop_app/modules/auth/register/bloc/register_repository.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
