@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/network/local/preference_utils.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:shop_app/network/local/preference_utils.dart';
 import 'package:shop_app/utils/lang/app_localization.dart';
 
 final Locale systemLocale = WidgetsBinding.instance.window.locales.first;
