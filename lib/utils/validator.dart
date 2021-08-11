@@ -35,7 +35,7 @@ class Validator {
     }
   }
 
-  static ValidationState validationUserName(String name) {
+  static ValidationState validateUserName(String name) {
     if (name.isNullOrEmpty) {
       return ValidationState.Empty;
     } else if (name.length < 3) {
@@ -45,7 +45,7 @@ class Validator {
     }
   }
 
-  static ValidationState validationPhone(String phone) {
+  static ValidationState validatePhone(String phone) {
     if (phone.isNullOrEmpty) {
       return ValidationState.Empty;
     } else if (phone.length != 11 || !isPhone(phone)) {
