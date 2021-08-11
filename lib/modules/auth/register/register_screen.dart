@@ -1,12 +1,13 @@
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
+
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:shop_app/models/register_model.dart';
-import 'package:shop_app/modules/auth/login/login_screen.dart';
+import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
 import 'package:shop_app/modules/auth/register/cubit/register_states.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
-
 import 'cubit/register_cubit.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -27,11 +28,10 @@ class RegisterScreen extends StatelessWidget {
         create: (context) => RegisterCubit(),
         child: BlocConsumer<RegisterCubit, RegisterStates>(
           listener: (context, state) {
-            if(state is RegisterSuccessState){
+            if (state is RegisterSuccessState) {
               buildToastMessage(state.model.message, Colors.green);
               navigateToHomeScreen(context);
-
-            } else if (state is RegisterErrorState){
+            } else if (state is RegisterErrorState) {
               buildToastMessage(state.message, Colors.red);
             }
           },
@@ -53,7 +53,7 @@ class RegisterScreen extends StatelessWidget {
                         Text("Register now to browse our hot offers"),
                         SizedBox(height: 40),
                         TextFormField(
-                          textInputAction:TextInputAction.next,
+                          textInputAction: TextInputAction.next,
                           controller: userNameController,
                           validator: (String value) {
                             if (value.isEmpty) {
@@ -72,7 +72,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         TextFormField(
-                          textInputAction:TextInputAction.next,
+                          textInputAction: TextInputAction.next,
                           controller: emailController,
                           validator: (String value) {
                             if (value.isEmpty) {
@@ -91,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         TextFormField(
-                          textInputAction:TextInputAction.next,
+                          textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.text,
                           obscureText: RegisterCubit.get(context).isPassword,
                           controller: passwordController,
@@ -112,7 +112,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         TextFormField(
-                          textInputAction:TextInputAction.done,
+                          textInputAction: TextInputAction.done,
                           controller: phoneController,
                           validator: (String value) {
                             if (value.isEmpty) {
@@ -145,7 +145,8 @@ class RegisterScreen extends StatelessWidget {
                                       password: passwordController.text.trim(),
                                       phone: phoneController.text.trim(),
                                     );
-                                    RegisterCubit.get(context).userRegister(registerModel: registerModel);
+                                    RegisterCubit.get(context).userRegister(
+                                        registerModel: registerModel);
                                   }
                                 },
                                 child: Text("REGISTER"),
@@ -192,8 +193,9 @@ class RegisterScreen extends StatelessWidget {
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
-  void navigateToHomeScreen(BuildContext context){
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+  void navigateToHomeScreen(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
   void buildToastMessage(String message, Color color) {

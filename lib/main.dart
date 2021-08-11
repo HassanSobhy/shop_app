@@ -1,7 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+
+import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/modules/auth/login/login_screen.dart';
+import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
+
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'package:shop_app/modules/on_boarding/on_boarding_screen.dart';
@@ -9,7 +11,6 @@ import 'package:shop_app/shop_observer.dart';
 import 'package:shop_app/bloc/lang/language_cubit.dart';
 import 'package:shop_app/utils/lang/app_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'constant.dart';
 import 'network/local/preference_utils.dart';
 import 'network/remote/dio_helper.dart';
@@ -37,9 +38,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     isOnBoarding = PreferenceUtils.getData(onBoardingKey) ?? false;
     isUserToken = PreferenceUtils.getData(userTokenKey) != null ? true : false;
-    print(isOnBoarding);
-    print(isUserToken);
-
     super.initState();
   }
 
@@ -47,14 +45,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomeCubit>(create: (context) =>
-        HomeCubit()
-          ..getAllData()),
+        BlocProvider<HomeCubit>(create: (context) => HomeCubit()..getAllData()),
         BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()),
       ],
       child:
-      BlocBuilder<LanguageCubit, Locale>(builder: (context, localeState) {
+          BlocBuilder<LanguageCubit, Locale>(builder: (context, localeState) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           supportedLocales: AppLocalizations.SUPPORTED_LOCALES,
@@ -63,7 +59,6 @@ class _MyAppState extends State<MyApp> {
           ///     the localization data for the proper
           /// language is loaded ...
           localizationsDelegates: [
-
             /// A class which loads the translations from JSON files
             AppLocalizations.delegate,
 
@@ -90,8 +85,8 @@ class _MyAppState extends State<MyApp> {
                   color: Colors.white, elevation: 0, textTheme: TextTheme())),
           home: isOnBoarding
               ? isUserToken
-              ? HomeScreen()
-              : LoginScreen()
+                  ? HomeScreen()
+                  : LoginScreen()
               : OnBoardingScreen(),
         );
       }),
