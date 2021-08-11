@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   smooth_page_indicator: ^0.2.3
   dio: ^4.0.0
   flutter_bloc: ^7.0.1
@@ -56,6 +58,8 @@ flutter:
   # like this:
   assets:
     - assets/images/
+    - lang/en.json
+    - lang/ar.json
 
   fonts:
     - family: Nunito
