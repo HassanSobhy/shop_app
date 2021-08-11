@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_app/models/register/register_response_model.dart';
-import 'package:shop_app/modules/auth/login/login_screen.dart';
+import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
-
 import '../../constant.dart';
 
 class SettingsScreen extends StatelessWidget {
-
   //Form Key
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       builder: (context, state) {
-        if(state is HomeLoadingProfileState){
+        if (state is HomeLoadingProfileState) {
           return buildLoadingState();
         } else {
-          nameController.text = HomeCubit.get(context).userDataModel.registerUserDataModel.name;
-          emailController.text = HomeCubit.get(context).userDataModel.registerUserDataModel.email;
-          phoneController.text = HomeCubit.get(context).userDataModel.registerUserDataModel.phone;
+          nameController.text =
+              HomeCubit.get(context).userDataModel.loginResponseDataModel.name;
+          emailController.text =
+              HomeCubit.get(context).userDataModel.loginResponseDataModel.email;
+          phoneController.text =
+              HomeCubit.get(context).userDataModel.loginResponseDataModel.phone;
+
           return buildLoadedState(context);
         }
       },
@@ -40,7 +36,6 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget buildLoadedState(BuildContext context) {
-
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -106,12 +101,11 @@ class SettingsScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if(formKey.currentState.validate()){
+                    if (formKey.currentState.validate()) {
                       HomeCubit.get(context).updateProfileData(
                         name: nameController.text.trim(),
                         email: emailController.text.trim(),
                         phone: phoneController.text.trim(),
-
                       );
                     }
                   },
@@ -142,14 +136,15 @@ Widget buildLoadingState() {
   );
 }
 
-
 void signOut(BuildContext context) async {
-  try{
+  try {
     bool signOut = await PreferenceUtils.removeData(userTokenKey);
-    if(signOut == true){
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
+    if (signOut == true) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false);
     }
-  } catch(e){
+  } catch (e) {
     //Error Handling.
   }
 }

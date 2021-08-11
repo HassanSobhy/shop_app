@@ -1,7 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:shop_app/models/category_models/categories_model.dart';
 import 'package:shop_app/models/favorites_models/favorite_model.dart';
 import 'package:shop_app/models/home.dart';
