@@ -1,4 +1,4 @@
-class RegisterUserDataModel{
+class RegisterUserDataModel {
   int id;
   String name;
   String email;
@@ -6,8 +6,7 @@ class RegisterUserDataModel{
   String image;
   String token;
 
-  RegisterUserDataModel.fromJson(Map<String, dynamic> json)
-  {
+  RegisterUserDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];

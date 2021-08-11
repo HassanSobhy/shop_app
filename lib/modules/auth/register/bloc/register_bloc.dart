@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:shop_app/models/register/register_model.dart';
 import 'package:shop_app/models/register/register_response_model.dart';
 import 'package:shop_app/modules/auth/register/bloc/register_repository.dart';
+
 part 'register_event.dart';
 
 part 'register_state.dart';
