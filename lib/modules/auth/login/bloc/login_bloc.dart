@@ -50,9 +50,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final ValidationState validateState = Validator.validateEmail(email);
 
     if (validateState == ValidationState.Empty) {
-      loginState = LoginEmailEmptyFormatState();
+      loginState = LoginEmailEmptyFormatState("Email is empty");
     } else if (validateState == ValidationState.Formatting) {
-      loginState = LoginEmailInvalidFormatState();
+      loginState = LoginEmailInvalidFormatState("Email is invalid");
     } else {
       loginState = LoginEmailFormatCorrectState();
     }
@@ -63,9 +63,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginState loginState;
     final ValidationState validateState = Validator.validatePassword(password);
     if (validateState == ValidationState.Empty) {
-      loginState = LoginPasswordEmptyFormatState();
+      loginState = LoginPasswordEmptyFormatState("Password is empty");
     } else if (validateState == ValidationState.Formatting) {
-      loginState = LoginPasswordInvalidFormatState();
+      loginState = LoginPasswordInvalidFormatState("Password is invalid");
     } else {
       loginState = LoginPasswordFormatCorrectState();
     }
