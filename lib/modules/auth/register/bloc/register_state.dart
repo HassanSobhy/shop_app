@@ -33,26 +33,58 @@ class RegisterNavigationToLoginScreenState extends RegisterState {
   const RegisterNavigationToLoginScreenState();
 }
 
-class RegisterUsernameEmptyFormatState extends RegisterState {}
+class RegisterUsernameEmptyFormatState extends RegisterState {
+  final String message;
 
-class RegisterUsernameInvalidFormatState extends RegisterState {}
+  const RegisterUsernameEmptyFormatState(this.message);
+}
+
+class RegisterUsernameInvalidFormatState extends RegisterState {
+  final String message;
+
+  const RegisterUsernameInvalidFormatState(this.message);
+}
 
 class RegisterUsernameFormatCorrectState extends RegisterState {}
 
-class RegisterEmailEmptyFormatState extends RegisterState {}
+class RegisterEmailEmptyFormatState extends RegisterState {
+  final String message;
 
-class RegisterEmailInvalidFormatState extends RegisterState {}
+  const RegisterEmailEmptyFormatState(this.message);
+}
+
+class RegisterEmailInvalidFormatState extends RegisterState {
+  final String message;
+
+  const RegisterEmailInvalidFormatState(this.message);
+}
 
 class RegisterEmailFormatCorrectState extends RegisterState {}
 
-class RegisterPasswordEmptyFormatState extends RegisterState {}
+class RegisterPasswordEmptyFormatState extends RegisterState {
+  final String message;
 
-class RegisterPasswordInvalidFormatState extends RegisterState {}
+  const RegisterPasswordEmptyFormatState(this.message);
+}
+
+class RegisterPasswordInvalidFormatState extends RegisterState {
+  final String message;
+
+  const RegisterPasswordInvalidFormatState(this.message);
+}
 
 class RegisterPasswordFormatCorrectState extends RegisterState {}
 
-class RegisterPhoneEmptyFormatState extends RegisterState {}
+class RegisterPhoneEmptyFormatState extends RegisterState {
+  final String message;
 
-class RegisterPhoneInvalidFormatState extends RegisterState {}
+  const RegisterPhoneEmptyFormatState(this.message);
+}
+
+class RegisterPhoneInvalidFormatState extends RegisterState {
+  final String message;
+
+  const RegisterPhoneInvalidFormatState(this.message);
+}
 
 class RegisterPhoneFormatCorrectState extends RegisterState {}
