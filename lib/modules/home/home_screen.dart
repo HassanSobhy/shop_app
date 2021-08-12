@@ -12,9 +12,10 @@ import 'package:shop_app/utils/lang/app_localization.dart';
 import 'package:shop_app/utils/lang/app_localization_keys.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen();
+
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<BottomNavigationBarBloc, HomeBottomNavigationBarState>(
       builder: (context, state) {
         if (state is HomeBottomNavigationProductsState) {
@@ -105,5 +106,4 @@ class HomeScreen extends StatelessWidget {
           .add(NavigationToSettingsScreenEvent(index));
     }
   }
-
 }
