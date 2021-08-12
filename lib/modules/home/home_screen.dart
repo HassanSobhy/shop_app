@@ -7,8 +7,6 @@ import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/bloc/bottom_navigation_bar_bloc.dart';
 import 'package:shop_app/modules/products/products_screen.dart';
 import 'package:shop_app/modules/settings/settings_screen.dart';
-import 'package:shop_app/modules/home/cubit/home_cubit.dart';
-import 'package:shop_app/modules/home/cubit/home_states.dart';
 import 'package:shop_app/modules/search/search_screen.dart';
 import 'package:shop_app/utils/lang/app_localization.dart';
 import 'package:shop_app/utils/lang/app_localization_keys.dart';
@@ -16,8 +14,7 @@ import 'package:shop_app/utils/lang/app_localization_keys.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BottomNavigationBarBloc, HomeBottomNavigationBarState>(
-      listener: (context, state) {},
+    return BlocBuilder<BottomNavigationBarBloc, HomeBottomNavigationBarState>(
       builder: (context, state) {
         if (state is HomeBottomNavigationProductsState) {
           return homeWidget(context, ProductsScreen(), state.index);
