@@ -42,18 +42,18 @@ class LoginScreen extends StatelessWidget {
               return loadingWidget();
             } else if (state is LoginEmailEmptyFormatState) {
               return loginFormWidget(context,
-                  emailValidateText: "Email is empty");
+                  emailValidateText: state.emailValidationText);
             } else if (state is LoginEmailInvalidFormatState) {
               return loginFormWidget(context,
-                  emailValidateText: "Email is invalid");
+                  emailValidateText: state.emailValidationText);
             } else if (state is LoginEmailFormatCorrectState) {
               return loginFormWidget(context);
             } else if (state is LoginPasswordEmptyFormatState) {
               return loginFormWidget(context,
-                  passwordValidateText: "Password is empty");
+                  passwordValidateText: state.passwordValidationText);
             } else if (state is LoginPasswordInvalidFormatState) {
               return loginFormWidget(context,
-                  passwordValidateText: "Password is invalid");
+                  passwordValidateText: state.passwordValidationText);
             } else if (state is LoginPasswordFormatCorrectState) {
               return loginFormWidget(context);
             } else {
