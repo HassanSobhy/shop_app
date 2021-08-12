@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/modules/home/bloc/bottom_navigation_bar_bloc.dart';
 import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
-
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'package:shop_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:shop_app/network/local/preference_utils.dart';
+import 'package:shop_app/network/remote/dio_helper.dart';
 import 'package:shop_app/shop_observer.dart';
 import 'package:shop_app/bloc/lang/language_cubit.dart';
 import 'package:shop_app/utils/lang/app_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'constant.dart';
-import 'network/local/preference_utils.dart';
-import 'network/remote/dio_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +45,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomeCubit>(create: (context) => HomeCubit()..getAllData()),
+        BlocProvider<HomeCubit>(
+            create: (BuildContext context) => HomeCubit()..getAllData()),
+        BlocProvider<BottomNavigationBarBloc>(
+            create: (BuildContext context) => BottomNavigationBarBloc()),
         BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()),
       ],

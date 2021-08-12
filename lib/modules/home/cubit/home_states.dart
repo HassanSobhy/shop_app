@@ -2,35 +2,31 @@ import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
 
 abstract class HomeStates {}
 
-class HomeInitialState extends HomeStates{}
+class HomeInitialState extends HomeStates {}
 
-class HomeChangeBottomNavState extends HomeStates{}
+class HomeLoadingState extends HomeStates {}
 
-class HomeLoadingState extends HomeStates{}
+class HomeSuccessState extends HomeStates {}
 
-class HomeSuccessState extends HomeStates{}
-
-class HomeErrorState extends HomeStates{}
+class HomeErrorState extends HomeStates {}
 
 class HomeCategorySuccessState extends HomeStates {}
 
 class HomeCategoryErrorState extends HomeStates {}
 
-class HomeDataSuccessState extends HomeStates{}
+class HomeDataSuccessState extends HomeStates {}
 
-class HomeDataErrorState extends HomeStates{}
+class HomeDataErrorState extends HomeStates {}
 
 //Favorite in Home Screen State
-class HomeChangeFavoritesSuccessState extends HomeStates{
+class HomeChangeFavoritesSuccessState extends HomeStates {
   final FavoriteResponseModel model;
 
   HomeChangeFavoritesSuccessState(this.model);
-
 }
 
-class HomeChangeFavoritesErrorState extends HomeStates{}
+class HomeChangeFavoritesErrorState extends HomeStates {}
 //Favorite in Home Screen State
-
 
 //Favorite Screen State
 class HomeLoadingFavoritesState extends HomeStates {}
