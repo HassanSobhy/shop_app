@@ -30,7 +30,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async* {
     if (event is UserRegisterEvent) {
       yield* handelRegisterEvent(event.registerModel);
-    } else if (event is RegisterNavigationToLoginScreenState) {
+    } else if (event is NavigationToLoginScreenEvent) {
       yield const RegisterNavigationToLoginScreenState();
     } else if (event is ChangePasswordVisibilityEvent) {
       yield changePasswordVisibility();
@@ -45,7 +45,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       final RegisterState emailState = validateEmail(registerModel.email);
       if (emailState is RegisterEmailFormatCorrectState) {
         final RegisterState passwordState =
-            validateEmail(registerModel.password);
+            validatePassword(registerModel.password);
         if (passwordState is RegisterPasswordFormatCorrectState) {
           final RegisterState phoneState = validatePhone(registerModel.phone);
           if (phoneState is RegisterPhoneFormatCorrectState) {
@@ -70,9 +70,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterState registerState;
     final ValidationState validateState = Validator.validateUserName(userName);
     if (validateState == ValidationState.Empty) {
-      registerState = RegisterUsernameEmptyFormatState();
+      registerState =
+          const RegisterUsernameEmptyFormatState("Username is empty");
     } else if (validateState == ValidationState.Formatting) {
-      registerState = RegisterUsernameInvalidFormatState();
+      registerState =
+          const RegisterUsernameInvalidFormatState("Username is invalid");
     } else {
       registerState = RegisterUsernameFormatCorrectState();
     }
@@ -84,9 +86,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     final ValidationState validateState = Validator.validateEmail(email);
 
     if (validateState == ValidationState.Empty) {
-      registerState = RegisterEmailEmptyFormatState();
+      registerState = const RegisterEmailEmptyFormatState("Email is empty");
     } else if (validateState == ValidationState.Formatting) {
-      registerState = RegisterEmailInvalidFormatState();
+      registerState = const RegisterEmailInvalidFormatState("Email is invalid");
     } else {
       registerState = RegisterEmailFormatCorrectState();
     }
@@ -97,9 +99,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterState registerState;
     final ValidationState validateState = Validator.validatePassword(password);
     if (validateState == ValidationState.Empty) {
-      registerState = RegisterPasswordEmptyFormatState();
+      registerState =
+          const RegisterPasswordEmptyFormatState("Password is empty");
     } else if (validateState == ValidationState.Formatting) {
-      registerState = RegisterPasswordInvalidFormatState();
+      registerState =
+          const RegisterPasswordInvalidFormatState("Password is invalid");
     } else {
       registerState = RegisterPasswordFormatCorrectState();
     }
@@ -110,11 +114,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterState registerState;
     final ValidationState validateState = Validator.validatePhone(phone);
     if (validateState == ValidationState.Empty) {
-      registerState = RegisterPasswordEmptyFormatState();
+      registerState = const RegisterPhoneEmptyFormatState("Phone is invalid");
     } else if (validateState == ValidationState.Formatting) {
-      registerState = RegisterPasswordInvalidFormatState();
+      registerState = const RegisterPhoneInvalidFormatState("Phone is invalid");
     } else {
-      registerState = RegisterPasswordFormatCorrectState();
+      registerState = RegisterPhoneFormatCorrectState();
     }
     return registerState;
   }
