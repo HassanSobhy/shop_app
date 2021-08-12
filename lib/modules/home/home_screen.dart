@@ -6,8 +6,12 @@ import 'package:shop_app/modules/categories/categories_screen.dart';
 import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/bloc/bottom_navigation_bar_bloc.dart';
 import 'package:shop_app/modules/products/products_screen.dart';
-import 'package:shop_app/modules/search/search_screen.dart';
 import 'package:shop_app/modules/settings/settings_screen.dart';
+import 'package:shop_app/modules/home/cubit/home_cubit.dart';
+import 'package:shop_app/modules/home/cubit/home_states.dart';
+import 'package:shop_app/modules/search/search_screen.dart';
+import 'package:shop_app/utils/lang/app_localization.dart';
+import 'package:shop_app/utils/lang/app_localization_keys.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -35,10 +39,11 @@ class HomeScreen extends StatelessWidget {
   ///////////////////////////////////////////////////////////
 
   Widget homeWidget(BuildContext context, Widget body, [int index = 0]) {
+    final appLocal = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Salla",
+        title: Text(
+          appLocal.translate(LangKeys.APP_NAME),
           style: TextStyle(color: Colors.black),
         ),
         actions: [

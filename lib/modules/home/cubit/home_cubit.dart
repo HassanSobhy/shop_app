@@ -9,7 +9,9 @@ import 'package:shop_app/models/category_models/categories_model.dart';
 import 'package:shop_app/models/favorites_models/favorite.dart';
 import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
 import 'package:shop_app/models/home.dart';
-import 'package:shop_app/models/response_model.dart';
+import 'package:shop_app/models/login/login_response_model.dart';
+import 'package:shop_app/modules/categories/categories_screen.dart';
+import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
@@ -28,7 +30,7 @@ class HomeCubit extends Cubit<HomeStates> {
   Home home;
   CategoriesModel categoriesModel;
   FavoriteResponseModel favoriteResponseModel;
-  ResponseModel userDataModel;
+  LoginResponseModel userDataModel;
   Favorite favorite;
   Map<int, bool> favorites = {};
 
@@ -126,7 +128,7 @@ class HomeCubit extends Cubit<HomeStates> {
         path: PROFILE,
         token: PreferenceUtils.getData(userTokenKey),
       );
-      userDataModel = ResponseModel.fromJson(response.data);
+      userDataModel = LoginResponseModel.fromJson(response.data);
 
       if (userDataModel.status) {
         isGetProfile = true;
@@ -155,7 +157,7 @@ class HomeCubit extends Cubit<HomeStates> {
         },
         token: PreferenceUtils.getData(userTokenKey),
       );
-      userDataModel = ResponseModel.fromJson(response.data);
+      userDataModel = LoginResponseModel.fromJson(response.data);
 
       if (userDataModel.status) {
         emit(HomeSuccessUpdateUserState());

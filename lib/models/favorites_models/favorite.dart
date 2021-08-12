@@ -44,7 +44,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      productData = new List<ProductData>();
+      productData =  [];
       json['data'].forEach((v) {
         productData.add(new ProductData.fromJson(v));
       });
