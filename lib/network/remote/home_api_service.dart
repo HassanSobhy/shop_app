@@ -67,7 +67,7 @@ class HomeApiService {
       'lang': lang,
       'Authorization': token,
     };
-    return DioHelper.dio.put(path,data: data);
+    return DioHelper.dio.put(path, data: data);
   }
 
   static Future<Response> searchData({
@@ -75,12 +75,12 @@ class HomeApiService {
     @required Map<String, dynamic> data,
     String lang = 'en',
     String token,
-  }){
+  }) {
     DioHelper.dio.options.headers = {
       'lang': lang,
       'Authorization': token,
     };
 
-    return DioHelper.dio.post(path,data: data);
+    return DioHelper.dio.post(path, data: data);
   }
 }

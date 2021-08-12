@@ -6,7 +6,7 @@ import 'package:shop_app/models/login/login_response_model.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_state.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
-import 'package:shop_app/network/remote/login_api_service.dart';
+import 'package:shop_app/network/remote/auth_api_service.dart';
 import 'package:shop_app/utils/auth_exception_handler.dart';
 
 abstract class BaseLoginRepository {
@@ -20,7 +20,7 @@ class LoginRepository extends BaseLoginRepository {
     String _errorMessage;
     String _language = "en";
     try {
-      Response response = await LoginApiService.signInWithEmailAndPassword(
+      Response response = await AuthApiService.signInWithEmailAndPassword(
         path: LOGIN,
         data: loginModel.toMap(),
         lang: _language,

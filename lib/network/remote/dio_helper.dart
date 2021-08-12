@@ -1,18 +1,13 @@
 import 'package:dio/dio.dart';
 
-class DioHelper{
+class DioHelper {
   static Dio dio;
-  static init(){
-    dio = Dio(
-      BaseOptions(
+  static init() {
+    dio = Dio(BaseOptions(
         baseUrl: "https://student.valuxapps.com/api/",
         receiveDataWhenStatusError: true,
         headers: {
-          "Content-Type":"application/json",
-        }
-      )
-    );
+          "Content-Type": "application/json",
+        }));
   }
 }
-
-

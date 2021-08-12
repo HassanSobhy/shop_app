@@ -1,43 +1,33 @@
-
-class CategoriesModel{
+class CategoriesModel {
   bool status;
   CategoriesDataModel data;
 
-  CategoriesModel.fromJson(Map<String, dynamic> json)
-  {
+  CategoriesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     data = CategoriesDataModel.fromJson(json['data']);
   }
-
 }
 
-class CategoriesDataModel{
-
+class CategoriesDataModel {
   int currentPage;
   List<CategoriesData> data = [];
 
-  CategoriesDataModel.fromJson(Map<String, dynamic> json)
-  {
+  CategoriesDataModel.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
-    json['data'].forEach((element)
-    {
+    json['data'].forEach((element) {
       data.add(CategoriesData.fromJson(element));
     });
   }
-
 }
 
-class CategoriesData{
-
+class CategoriesData {
   int id;
   String name;
   String image;
 
-  CategoriesData.fromJson(Map<String, dynamic> json)
-  {
+  CategoriesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     image = json['image'];
   }
-
 }

@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class RegisterModel {
   final String username;
   final String email;
@@ -7,15 +5,15 @@ class RegisterModel {
   final String phone;
 
   const RegisterModel({
-    @required this.username,
-    @required this.email,
-    @required this.password,
-    @required this.phone,
+    this.username,
+    this.email,
+    this.password,
+    this.phone,
   });
 
   Map<String, String> toMap() {
     return {
-      'name': email,
+      'name': username,
       "phone": phone,
       "email": email,
       "password": password,

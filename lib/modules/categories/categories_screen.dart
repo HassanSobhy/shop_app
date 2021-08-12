@@ -13,7 +13,8 @@ class CategoriesScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return ListView.separated(
-          itemBuilder: (context, index) => buildCatItem(HomeCubit.get(context).categoriesModel.data.data[index]),
+          itemBuilder: (context, index) => buildCatItem(
+              HomeCubit.get(context).categoriesModel.data.data[index]),
           separatorBuilder: (context, index) => buildListViewDivider(),
           itemCount: HomeCubit.get(context).categoriesModel.data.data.length,
         );

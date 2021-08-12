@@ -28,17 +28,17 @@ class Data {
 
   Data(
       {this.currentPage,
-        this.data,
-        this.firstPageUrl,
-        this.from,
-        this.lastPage,
-        this.lastPageUrl,
-        this.nextPageUrl,
-        this.path,
-        this.perPage,
-        this.prevPageUrl,
-        this.to,
-        this.total});
+      this.data,
+      this.firstPageUrl,
+      this.from,
+      this.lastPage,
+      this.lastPageUrl,
+      this.nextPageUrl,
+      this.path,
+      this.perPage,
+      this.prevPageUrl,
+      this.to,
+      this.total});
 
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
@@ -59,8 +59,6 @@ class Data {
     to = json['to'];
     total = json['total'];
   }
-
-
 }
 
 class ProductData {
@@ -75,13 +73,13 @@ class ProductData {
 
   ProductData(
       {this.id,
-        this.price,
-        this.image,
-        this.name,
-        this.description,
-        this.images,
-        this.inFavorites,
-        this.inCart});
+      this.price,
+      this.image,
+      this.name,
+      this.description,
+      this.images,
+      this.inFavorites,
+      this.inCart});
 
   ProductData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -93,6 +91,4 @@ class ProductData {
     inFavorites = json['in_favorites'];
     inCart = json['in_cart'];
   }
-
-
 }

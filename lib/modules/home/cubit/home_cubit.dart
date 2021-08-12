@@ -128,6 +128,7 @@ class HomeCubit extends Cubit<HomeStates> {
         path: PROFILE,
         token: PreferenceUtils.getData(userTokenKey),
       );
+
       userDataModel = LoginResponseModel.fromJson(response.data);
 
       if (userDataModel.status) {
