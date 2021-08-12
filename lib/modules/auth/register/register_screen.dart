@@ -35,6 +35,38 @@ class RegisterScreen extends StatelessWidget {
               return registerFormWidget(context);
             } else if (state is RegisterLoadingState) {
               return loadingWidget();
+            } else if (state is RegisterUsernameEmptyFormatState) {
+              return registerFormWidget(context,
+                  userNameValidationText: state.message);
+            } else if (state is RegisterUsernameInvalidFormatState) {
+              return registerFormWidget(context,
+                  userNameValidationText: state.message);
+            } else if (state is RegisterUsernameFormatCorrectState) {
+              return registerFormWidget(context);
+            } else if (state is RegisterEmailEmptyFormatState) {
+              return registerFormWidget(context,
+                  emailValidationText: state.message);
+            } else if (state is RegisterEmailInvalidFormatState) {
+              return registerFormWidget(context,
+                  emailValidationText: state.message);
+            } else if (state is RegisterEmailFormatCorrectState) {
+              return registerFormWidget(context);
+            } else if (state is RegisterPasswordEmptyFormatState) {
+              return registerFormWidget(context,
+                  passwordValidationText: state.message);
+            } else if (state is RegisterPasswordInvalidFormatState) {
+              return registerFormWidget(context,
+                  passwordValidationText: state.message);
+            } else if (state is RegisterPasswordFormatCorrectState) {
+              return registerFormWidget(context);
+            } else if (state is RegisterPhoneEmptyFormatState) {
+              return registerFormWidget(context,
+                  phoneValidationText: state.message);
+            } else if (state is RegisterPhoneInvalidFormatState) {
+              return registerFormWidget(context,
+                  phoneValidationText: state.message);
+            } else if (state is RegisterPhoneFormatCorrectState) {
+              return registerFormWidget(context);
             } else {
               return registerFormWidget(context);
             }
@@ -47,7 +79,13 @@ class RegisterScreen extends StatelessWidget {
   ///////////////////////////////////////////////////////////
   //////////////////// Widget methods ///////////////////////
   ///////////////////////////////////////////////////////////
-  Widget registerFormWidget(BuildContext context) {
+  Widget registerFormWidget(
+    BuildContext context, {
+    String userNameValidationText,
+    String emailValidationText,
+    String passwordValidationText,
+    String phoneValidationText,
+  }) {
     return Center(
       child: SingleChildScrollView(
         child: Padding(
@@ -57,13 +95,13 @@ class RegisterScreen extends StatelessWidget {
             children: [
               headLineTextWidget(context),
               const SizedBox(height: 40),
-              userNameTextFieldWidget(),
+              userNameTextFieldWidget(userNameValidationText),
               sizedBoxDividerWidget(),
-              emailTextFieldWidget(),
+              emailTextFieldWidget(emailValidationText),
               sizedBoxDividerWidget(),
-              passwordTextFieldWidget(context),
+              passwordTextFieldWidget(context, passwordValidationText),
               sizedBoxDividerWidget(),
-              phoneTextFieldWidget(),
+              phoneTextFieldWidget(phoneValidationText),
               const SizedBox(height: 32),
               registerButtonWidget(context),
               sizedBoxDividerWidget(),
@@ -75,13 +113,14 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget userNameTextFieldWidget() {
+  Widget userNameTextFieldWidget(String userNameValidationText) {
     return TextFormField(
       textInputAction: TextInputAction.next,
       controller: userNameController,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         labelText: "Username",
+        errorText: userNameValidationText,
         prefixIcon: const Icon(Icons.person),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -134,12 +173,13 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget phoneTextFieldWidget() {
+  Widget phoneTextFieldWidget(String phoneValidationText) {
     return TextFormField(
       textInputAction: TextInputAction.done,
       controller: phoneController,
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
+        errorText: phoneValidationText,
         labelText: "Phone",
         prefixIcon: const Icon(Icons.phone),
         border: OutlineInputBorder(
@@ -149,13 +189,15 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget passwordTextFieldWidget(BuildContext context) {
+  Widget passwordTextFieldWidget(
+      BuildContext context, String passwordValidationText) {
     return TextFormField(
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.text,
       obscureText: RegisterBloc.get(context).isPassword,
       controller: passwordController,
       decoration: InputDecoration(
+        errorText: passwordValidationText,
         labelText: "Password",
         prefixIcon: const Icon(Icons.lock_outline_rounded),
         suffixIcon: Icon(RegisterBloc.get(context).suffix),
@@ -166,12 +208,13 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget emailTextFieldWidget() {
+  Widget emailTextFieldWidget(String emailValidationText) {
     return TextFormField(
       textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+        errorText: emailValidationText,
         labelText: "Email",
         prefixIcon: const Icon(Icons.email_outlined),
         border: OutlineInputBorder(
