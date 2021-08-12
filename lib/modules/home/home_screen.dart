@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
     final appLocal = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           appLocal.translate(LangKeys.APP_NAME),
           style: TextStyle(color: Colors.black),
         ),
