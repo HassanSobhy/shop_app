@@ -8,7 +8,7 @@ import 'package:shop_app/constant.dart';
 import 'package:shop_app/models/category_models/categories_model.dart';
 import 'package:shop_app/models/favorites_models/favorite.dart';
 import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
-import 'package:shop_app/models/home.dart';
+import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/login/login_response_model.dart';
 import 'package:shop_app/modules/categories/categories_screen.dart';
 import 'package:shop_app/modules/favorites/favorites_screen.dart';
@@ -27,7 +27,7 @@ class HomeCubit extends Cubit<HomeStates> {
   bool isGetFavorites = false;
   bool isGetProfile = false;
 
-  Home home;
+  Products home;
   CategoriesModel categoriesModel;
   FavoriteResponseModel favoriteResponseModel;
   LoginResponseModel userDataModel;
@@ -40,12 +40,12 @@ class HomeCubit extends Cubit<HomeStates> {
       Response response = await HomeApiService.getData(
           path: HOME, token: PreferenceUtils.getData(userTokenKey));
 
-      home = Home.fromJson(response.data);
+      home = Products.fromJson(response.data);
 
       if (home.status) {
         isGetProducts = true;
 
-        home.data.products.forEach((element) {
+        home.productsData.products.forEach((element) {
           //Add new pair to map
           favorites[element.id] = element.inFavorites;
         });

@@ -6,8 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:shop_app/models/category_models/categories_model.dart';
 import 'package:shop_app/models/favorites_models/favorite_model.dart';
-import 'package:shop_app/models/home.dart';
-import 'package:shop_app/models/product.dart';
+import 'package:shop_app/models/products/products.dart';
+import 'package:shop_app/models/products/product.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
 
@@ -44,8 +44,8 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildProductBody(
-      Home homeData, CategoriesModel categoriesModel, BuildContext context) {
+  Widget buildProductBody(Products homeData, CategoriesModel categoriesModel,
+      BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -104,7 +104,7 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGridView(Home homeData, BuildContext context) {
+  Widget buildGridView(Products homeData, BuildContext context) {
     return Container(
       color: Colors.grey[300],
       child: GridView.count(
@@ -115,18 +115,19 @@ class ProductsScreen extends StatelessWidget {
         crossAxisSpacing: 1.0,
         childAspectRatio: 1 / 1.7,
         children: List.generate(
-          homeData.data.products.length,
-          (index) => buildGridProduct(homeData.data.products[index], context),
+          homeData.productsData.products.length,
+          (index) =>
+              buildGridProduct(homeData.productsData.products[index], context),
         ),
       ),
     );
   }
 
-  Widget buildCarouselSlider(Home homeData) {
+  Widget buildCarouselSlider(Products homeData) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: CarouselSlider(
-        items: homeData.data.banners
+        items: homeData.productsData.banners
             .map((element) => Image(
                   image: NetworkImage(
                     "${element.image}",
