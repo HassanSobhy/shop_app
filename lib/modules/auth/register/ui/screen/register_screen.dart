@@ -259,8 +259,8 @@ class RegisterScreen extends StatelessWidget {
   }
 
   void navigateToHomeScreen(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 
   void buildToastMessage(String message, Color color) {
