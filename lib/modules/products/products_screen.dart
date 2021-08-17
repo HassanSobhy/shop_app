@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/models/categories/categories.dart';
+import 'package:shop_app/models/categories/category.dart';
 
-import 'package:shop_app/models/category_models/categories_model.dart';
 import 'package:shop_app/models/favorites_models/favorite_model.dart';
 import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/products/product.dart';
@@ -44,8 +45,8 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildProductBody(Products homeData, CategoriesModel categoriesModel,
-      BuildContext context) {
+  Widget buildProductBody(
+      Products homeData, Categories categoriesModel, BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -58,7 +59,7 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCategoryHorizontalList(CategoriesModel categoriesModel) {
+  Widget buildCategoryHorizontalList(Categories categoriesModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
@@ -81,12 +82,12 @@ class ProductsScreen extends StatelessWidget {
             child: ListView.separated(
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) =>
-                  buildCategoryItem(categoriesModel.data.data[index]),
+              itemBuilder: (context, index) => buildCategoryItem(
+                  categoriesModel.categoriesData.categoryDataList[index]),
               separatorBuilder: (context, index) => SizedBox(
                 width: 10.0,
               ),
-              itemCount: categoriesModel.data.data.length,
+              itemCount: categoriesModel.categoriesData.categoryDataList.length,
             ),
           ),
           SizedBox(
@@ -247,7 +248,7 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildCategoryItem(CategoriesData model) => Stack(
+  Widget buildCategoryItem(Category model) => Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Image(

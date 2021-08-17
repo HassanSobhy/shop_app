@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shop_app/constant.dart';
-import 'package:shop_app/models/category_models/categories_model.dart';
+import 'package:shop_app/models/categories/categories.dart';
 import 'package:shop_app/models/favorites_models/favorite.dart';
 import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
 import 'package:shop_app/models/products/products.dart';
@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeStates> {
   bool isGetProfile = false;
 
   Products home;
-  CategoriesModel categoriesModel;
+  Categories categoriesModel;
   FavoriteResponseModel favoriteResponseModel;
   LoginResponseModel userDataModel;
   Favorite favorite;
@@ -38,7 +38,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeLoadingState());
     try {
       Response response = await HomeApiService.getData(
-          path: HOME, token: PreferenceUtils.getData(userTokenKey));
+          path: PRODUCTS, token: PreferenceUtils.getData(userTokenKey));
 
       home = Products.fromJson(response.data);
 
@@ -63,7 +63,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeLoadingState());
     try {
       Response response = await HomeApiService.getData(path: CATEGORIES);
-      categoriesModel = CategoriesModel.fromJson(response.data);
+      categoriesModel = Categories.fromJson(response.data);
       if (categoriesModel.status) {
         isGetCategories = true;
         emit(HomeCategorySuccessState());
