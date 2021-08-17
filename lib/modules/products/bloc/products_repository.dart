@@ -16,6 +16,8 @@ abstract class BaseProductsRepository {
     Map<String, int> favorite,
     String language,
   );
+
+  Map<int, bool> getFavoriteProducts();
 }
 
 class ProductsRepository implements BaseProductsRepository {
@@ -80,5 +82,10 @@ class ProductsRepository implements BaseProductsRepository {
       _productsState = ProductsChangeFavoritesErrorState(_errorMessage);
     }
     return _productsState;
+  }
+
+  @override
+  Map<int, bool> getFavoriteProducts() {
+    return favoriteProducts;
   }
 }
