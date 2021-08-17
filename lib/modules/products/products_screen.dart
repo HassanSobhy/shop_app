@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/models/categories/categories.dart';
 import 'package:shop_app/models/categories/category.dart';
+import 'package:shop_app/models/favorites/favorite_model.dart';
 
-import 'package:shop_app/models/favorites_models/favorite_model.dart';
 import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/products/product.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';

@@ -1,4 +1,4 @@
-import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
+import 'package:shop_app/models/favorites/favorite_response_model.dart';
 
 abstract class HomeStates {}
 

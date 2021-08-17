@@ -6,12 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shop_app/constant.dart';
 import 'package:shop_app/models/categories/categories.dart';
-import 'package:shop_app/models/favorites_models/favorite.dart';
-import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
+import 'package:shop_app/models/favorites/favorite.dart';
+import 'package:shop_app/models/favorites/favorite_response_model.dart';
 import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/login/login_response_model.dart';
-import 'package:shop_app/modules/categories/categories_screen.dart';
-import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
@@ -31,7 +29,7 @@ class HomeCubit extends Cubit<HomeStates> {
   Categories categoriesModel;
   FavoriteResponseModel favoriteResponseModel;
   LoginResponseModel userDataModel;
-  Favorite favorite;
+  Favorites favorite;
   Map<int, bool> favorites = {};
 
   Future<void> getHomeData() async {
@@ -109,7 +107,7 @@ class HomeCubit extends Cubit<HomeStates> {
         path: FAVORITES,
         token: PreferenceUtils.getData(userTokenKey),
       );
-      favorite = Favorite.fromJson(response.data);
+      favorite = Favorites.fromJson(response.data);
       if (favorite.status) {
         isGetFavorites = true;
         emit(HomeSuccessFavoritesState());
