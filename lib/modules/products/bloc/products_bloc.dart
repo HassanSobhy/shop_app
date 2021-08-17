@@ -22,9 +22,6 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     if (event is GetProductDataEvent) {
       yield const ProductsLoadingState();
       yield await productsRepository.getProductsData(event.language);
-    } else if (event is GetCategoriesDataEvent) {
-      yield const CategoriesLoadingState();
-      yield await productsRepository.getCategoryData(event.language);
     } else if (event is ChangeFavoriteProductEvent) {
       yield await productsRepository.setProductFavorite(
           event.favoriteModel, event.language);

@@ -11,12 +11,6 @@ class GetProductDataEvent extends ProductsEvent {
   const GetProductDataEvent(this.language);
 }
 
-class GetCategoriesDataEvent extends ProductsEvent {
-  final String language;
-
-  const GetCategoriesDataEvent(this.language);
-}
-
 class ChangeFavoriteProductEvent extends ProductsEvent {
   final Map<String, int> favoriteModel;
   final String language;

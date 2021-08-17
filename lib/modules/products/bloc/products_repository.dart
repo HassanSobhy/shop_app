@@ -12,8 +12,6 @@ import 'package:shop_app/utils/auth_exception_handler.dart';
 abstract class BaseProductsRepository {
   Future<ProductsState> getProductsData(String language);
 
-  Future<ProductsState> getCategoryData(String language);
-
   Future<ProductsState> setProductFavorite(
     Map<String, int> favorite,
     String language,
@@ -47,33 +45,6 @@ class ProductsRepository implements BaseProductsRepository {
     } on DioError catch (e) {
       _errorMessage = AuthExceptionHandler.handleException(e);
       _productsState = ProductsErrorState(_errorMessage);
-    }
-
-    return _productsState;
-  }
-
-  @override
-  Future<ProductsState> getCategoryData(String language) async {
-    Categories _categories;
-    ProductsState _productsState;
-    String _errorMessage;
-
-    try {
-      final Response response = await HomeApiService.getData(
-        path: CATEGORIES,
-        token: PreferenceUtils.getData(userTokenKey),
-        lang: language,
-      );
-      _categories = Categories.fromJson(response.data);
-      if (_categories.status) {
-        _productsState = CategoriesSuccessState(_categories);
-      } else {
-        _errorMessage = "Something wrong happened";
-        _productsState = CategoriesErrorState(_errorMessage);
-      }
-    } on DioError catch (e) {
-      _errorMessage = AuthExceptionHandler.handleException(e);
-      _productsState = CategoriesErrorState(_errorMessage);
     }
 
     return _productsState;

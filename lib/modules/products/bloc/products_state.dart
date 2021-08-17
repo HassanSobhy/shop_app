@@ -25,22 +25,6 @@ class ProductsErrorState extends ProductsState {
   const ProductsErrorState(this.message);
 }
 
-class CategoriesLoadingState extends ProductsState {
-  const CategoriesLoadingState();
-}
-
-class CategoriesSuccessState extends ProductsState {
-  final Categories categories;
-
-  const CategoriesSuccessState(this.categories);
-}
-
-class CategoriesErrorState extends ProductsState {
-  final String message;
-
-  const CategoriesErrorState(this.message);
-}
-
 class ProductsChangeFavoritesSuccessState extends ProductsState {
   final String message;
 
