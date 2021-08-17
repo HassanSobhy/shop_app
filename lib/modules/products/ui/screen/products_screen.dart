@@ -3,123 +3,67 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/models/categories/categories.dart';
-import 'package:shop_app/models/categories/category.dart';
 import 'package:shop_app/models/favorites/favorite_model.dart';
 
 import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/products/product.dart';
-import 'package:shop_app/modules/home/cubit/home_cubit.dart';
-import 'package:shop_app/modules/home/cubit/home_states.dart';
+import 'package:shop_app/modules/products/bloc/products_bloc.dart';
 
 class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeStates>(
+    Products products;
+    return BlocConsumer<ProductsBloc, ProductsState>(
       listener: (context, state) {
-        if (state is HomeChangeFavoritesSuccessState) {
-          String message = state.model.message;
-          if (state.model.status) {
-            buildToastMessage(message, Colors.green);
-          } else {
-            buildToastMessage(message, Colors.red);
-          }
+        if (state is ProductsErrorState) {
+          final String message = state.message;
+          buildToastMessage(message, Colors.red);
         }
       },
       builder: (context, state) {
-        if (state is HomeLoadingState) {
-          return buildLoadingState();
+        if (state is ProductsLoadingState) {
+          return loadingWidget();
+        } else if (state is ProductsSuccessState) {
+          products = state.products;
+          return buildProductBody(context, products);
+        } else if (state is ProductsErrorState) {
+          return errorWidget(context);
         } else {
-          return Scaffold(
-            body: buildProductBody(HomeCubit.get(context).home,
-                HomeCubit.get(context).categoriesModel, context),
-          );
+          return errorWidget(context);
         }
       },
     );
   }
 
-  Widget buildLoadingState() {
-    return Center(
+  Widget loadingWidget() {
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
-  Widget buildProductBody(
-      Products homeData, Categories categoriesModel, BuildContext context) {
-    return SingleChildScrollView(
+  Widget errorWidget(BuildContext context) {
+    return Center(
       child: Column(
         children: [
-          buildCarouselSlider(homeData),
-          SizedBox(height: 10),
-          buildCategoryHorizontalList(categoriesModel),
-          buildGridView(homeData, context),
-        ],
-      ),
-    );
-  }
-
-  Widget buildCategoryHorizontalList(Categories categoriesModel) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Categories',
+          const Text(
+            "Data Loading Failed",
             style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w600,
             ),
           ),
+          const SizedBox(height: 8),
           SizedBox(
-            height: 10.0,
+            width: 200,
+            height: 200,
+            child: Image.asset("assets/images/error.png"),
           ),
-          Container(
-            height: 100.0,
-            child: ListView.separated(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => buildCategoryItem(
-                  categoriesModel.categoriesData.categoryDataList[index]),
-              separatorBuilder: (context, index) => SizedBox(
-                width: 10.0,
-              ),
-              itemCount: categoriesModel.categoriesData.categoryDataList.length,
-            ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Text(
-            'New Products',
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          ElevatedButton(
+            onPressed: () {
+              ProductsBloc.get(context).add(const GetProductDataEvent("en"));
+            },
+            child: const Text("Refresh"),
+          )
         ],
-      ),
-    );
-  }
-
-  Widget buildGridView(Products homeData, BuildContext context) {
-    return Container(
-      color: Colors.grey[300],
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        mainAxisSpacing: 1.0,
-        crossAxisSpacing: 1.0,
-        childAspectRatio: 1 / 1.7,
-        children: List.generate(
-          homeData.productsData.products.length,
-          (index) =>
-              buildGridProduct(homeData.productsData.products[index], context),
-        ),
       ),
     );
   }
@@ -131,7 +75,7 @@ class ProductsScreen extends StatelessWidget {
         items: homeData.productsData.banners
             .map((element) => Image(
                   image: NetworkImage(
-                    "${element.image}",
+                    element.image,
                   ),
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -139,21 +83,47 @@ class ProductsScreen extends StatelessWidget {
             .toList(),
         options: CarouselOptions(
           height: 250.0,
-          initialPage: 0,
           viewportFraction: 1.0,
-          enableInfiniteScroll: true,
-          reverse: false,
           autoPlay: true,
-          autoPlayInterval: Duration(seconds: 3),
-          autoPlayAnimationDuration: Duration(seconds: 1),
-          autoPlayCurve: Curves.fastOutSlowIn,
-          scrollDirection: Axis.horizontal,
+          autoPlayInterval: const Duration(seconds: 3),
+          autoPlayAnimationDuration: const Duration(seconds: 1),
         ),
       ),
     );
   }
 
-  Widget buildGridProduct(Product model, BuildContext context) => Container(
+  Widget buildProductBody(BuildContext context, Products products) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          buildCarouselSlider(products),
+          const SizedBox(height: 10),
+          buildGridView(context, products),
+        ],
+      ),
+    );
+  }
+
+  Widget buildGridView(BuildContext context, Products products) {
+    return Container(
+      color: Colors.grey[300],
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        mainAxisSpacing: 1.0,
+        crossAxisSpacing: 1.0,
+        childAspectRatio: 1 / 1.7,
+        children: List.generate(
+          products.productsData.products.length,
+          (index) =>
+              buildGridProduct(products.productsData.products[index], context),
+        ),
+      ),
+    );
+  }
+
+  Widget buildGridProduct(Product product, BuildContext context) => Container(
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,17 +132,17 @@ class ProductsScreen extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 Image(
-                  image: NetworkImage(model.image),
+                  image: NetworkImage(product.image),
                   width: double.infinity,
                   height: 200.0,
                 ),
-                if (model.discount != 0)
+                if (product.discount != 0)
                   Container(
                     color: Colors.red,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 5.0,
                     ),
-                    child: Text(
+                    child: const Text(
                       'DISCOUNT',
                       style: TextStyle(
                         fontSize: 8.0,
@@ -188,10 +158,10 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.name,
+                    product.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
                       height: 1.3,
                     ),
@@ -199,43 +169,44 @@ class ProductsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${model.price.round()}',
-                        style: TextStyle(
+                        '${product.price.round()}',
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.deepOrange,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5.0,
                       ),
-                      if (model.discount != 0)
+                      if (product.discount != 0)
                         Text(
-                          '${model.oldPrice.round()}',
-                          style: TextStyle(
+                          '${product.oldPrice.round()}',
+                          style: const TextStyle(
                             fontSize: 10.0,
                             color: Colors.grey,
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
-                      Spacer(),
+                      const Spacer(),
                       CircleAvatar(
                         radius: 15,
-                        backgroundColor:
-                            HomeCubit.get(context).favorites[model.id]
-                                ? Colors.deepOrange
-                                : Colors.grey,
+                        backgroundColor: ProductsBloc.get(context)
+                                .favoriteProducts[product.id]
+                            ? Colors.deepOrange
+                            : Colors.grey,
                         child: IconButton(
                           padding: EdgeInsets.zero,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.favorite_border,
                             size: 14.0,
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            FavoriteModel favoriteModel =
-                                FavoriteModel(productId: model.id);
-                            HomeCubit.get(context)
-                                .changeFavorite(favoriteModel.toMap());
+                            final FavoriteModel favoriteModel =
+                                FavoriteModel(productId: product.id);
+                            ProductsBloc.get(context).add(
+                                ChangeFavoriteProductEvent(
+                                    favoriteModel.toMap(), "en"));
                           },
                         ),
                       ),
@@ -248,36 +219,9 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildCategoryItem(Category model) => Stack(
-        alignment: AlignmentDirectional.bottomCenter,
-        children: [
-          Image(
-            image: NetworkImage(model.image),
-            height: 100.0,
-            width: 100.0,
-            fit: BoxFit.cover,
-          ),
-          Container(
-            color: Colors.black.withOpacity(
-              .8,
-            ),
-            width: 100.0,
-            child: Text(
-              model.name,
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      );
-
   void buildToastMessage(String message, Color color) {
     Fluttertoast.showToast(
-        msg: "$message",
+        msg: message,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 5,

@@ -4,11 +4,7 @@ abstract class HomeStates {}
 
 class HomeInitialState extends HomeStates {}
 
-class HomeLoadingState extends HomeStates {}
-
-class HomeSuccessState extends HomeStates {}
-
-class HomeErrorState extends HomeStates {}
+class HomeCategoryLoadingState extends HomeStates {}
 
 class HomeCategorySuccessState extends HomeStates {}
 

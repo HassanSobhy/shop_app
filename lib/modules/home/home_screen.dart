@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/modules/categories/categories_screen.dart';
 import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/bloc/bottom_navigation_bar_bloc.dart';
-import 'package:shop_app/modules/products/products_screen.dart';
+import 'package:shop_app/modules/products/ui/screen/products_screen.dart';
 import 'package:shop_app/modules/settings/settings_screen.dart';
 import 'package:shop_app/modules/search/search_screen.dart';
 import 'package:shop_app/utils/lang/app_localization.dart';
