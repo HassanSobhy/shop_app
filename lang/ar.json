@@ -1,3 +1,9 @@
 {
-  "app_name": "المتجر"
+  "app_name": "المتجر",
+  "login": "تسجيل الدخول",
+  "login_to_see_offers": "سجل لمشاهدة افضل العروض",
+  "email": "الحساب الالكتروني",
+  "password": "كلمة السر",
+  "dont_have_account": "ليس لديك حساب",
+  "register": "انشاء حساب"
 }

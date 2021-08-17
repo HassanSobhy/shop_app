@@ -1,3 +1,9 @@
 {
-  "app_name": "Shop App"
+  "app_name": "Shop App",
+  "login": "Login",
+  "login_to_see_offers": "Login now to browse our hot offers",
+  "email": "Email",
+  "password": "Password",
+  "dont_have_account": "Don't have account",
+  "register": "Register"
 }
