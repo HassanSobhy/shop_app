@@ -11,7 +11,8 @@ part 'categories_state.dart';
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   BaseCategoriesRepository categoriesRepository;
 
-  CategoriesBloc() : super(const CategoriesInitialState());
+  CategoriesBloc(this.categoriesRepository)
+      : super(const CategoriesInitialState());
 
   @override
   Stream<CategoriesState> mapEventToState(
