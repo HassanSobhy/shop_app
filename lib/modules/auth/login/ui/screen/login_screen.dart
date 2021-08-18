@@ -10,16 +10,18 @@ import 'package:shop_app/modules/auth/login/bloc/login_repository.dart';
 import 'package:shop_app/modules/auth/login/bloc/login_state.dart';
 import 'package:shop_app/modules/auth/register/ui/screen/register_screen.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
+import 'package:shop_app/utils/lang/app_localization_keys.dart';
+import 'package:shop_app/_base/widgets/base_stateless_widget.dart';
 
 // ignore: must_be_immutable
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends BaseStatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String emailValidateText;
   String passwordValidateText;
 
   @override
-  Widget build(BuildContext context) {
+  Widget baseBuild(BuildContext context) {
     return BlocProvider<LoginBloc>(
       create: (context) => LoginBloc(LoginRepository()),
       child: Scaffold(
@@ -78,13 +80,13 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Login",
+              translate(LangKeys.LOGIN),
               style: Theme.of(context)
                   .textTheme
                   .headline4
                   .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
             ),
-            const Text("Login now to browse our hot offers"),
+            Text(translate(LangKeys.LOGIN_TO_SEE_OFFERS)),
             const SizedBox(height: 40),
             emailTextFieldWidget(emailValidateText),
             sizedBoxSeparatorWidget(),
@@ -113,7 +115,7 @@ class LoginScreen extends StatelessWidget {
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        labelText: "Email",
+        labelText: translate(LangKeys.EMAIL),
         errorText: emailValidateText,
         prefixIcon: const Icon(Icons.email_outlined),
         border: OutlineInputBorder(
@@ -131,7 +133,7 @@ class LoginScreen extends StatelessWidget {
       obscureText: LoginBloc.get(context).isPassword,
       controller: passwordController,
       decoration: InputDecoration(
-        labelText: "Password",
+        labelText: translate(LangKeys.PASSWORD),
         errorText: passwordValidateText,
         prefixIcon: const Icon(Icons.lock_outline_rounded),
         suffixIcon: IconButton(
@@ -155,7 +157,7 @@ class LoginScreen extends StatelessWidget {
         onPressed: () {
           signIn(context);
         },
-        child: const Text("LOGIN"),
+        child: Text(translate(LangKeys.LOGIN)),
       ),
     );
   }
@@ -164,12 +166,12 @@ class LoginScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have an account?"),
+        Text(translate(LangKeys.DONT_HAVE_ACCOUNT)),
         TextButton(
             onPressed: () => LoginBloc.get(context)
                 .add(const NavigationToRegisterScreenEvent()),
-            child: const Text(
-              "Register",
+            child: Text(
+              translate(LangKeys.REGISTER),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             )),
       ],
