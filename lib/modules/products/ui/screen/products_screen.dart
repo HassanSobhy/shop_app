@@ -9,15 +9,26 @@ import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/products/product.dart';
 import 'package:shop_app/modules/products/bloc/products_bloc.dart';
 
-class ProductsScreen extends StatelessWidget {
+class ProductsScreen extends StatefulWidget {
+  @override
+  _ProductsScreenState createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ProductsBloc>(context).add(GetProductDataEvent("en"));
+  }
+
+  Products products;
+
   @override
   Widget build(BuildContext context) {
-    Products products;
     return BlocConsumer<ProductsBloc, ProductsState>(
       listener: (context, state) {
         if (state is ProductsErrorState) {
-          final String message = state.message;
-          buildToastMessage(message, Colors.red);
+          buildToastMessage(state.message, Colors.red);
         }
       },
       builder: (context, state) {
@@ -29,7 +40,7 @@ class ProductsScreen extends StatelessWidget {
         } else if (state is ProductsErrorState) {
           return errorWidget(context);
         } else {
-          return errorWidget(context);
+          return defaultWidget(context);
         }
       },
     );
@@ -39,6 +50,14 @@ class ProductsScreen extends StatelessWidget {
     return const Center(
       child: CircularProgressIndicator(),
     );
+  }
+
+  Widget defaultWidget(BuildContext context) {
+    if (products == null) {
+      errorWidget(context);
+    } else {
+      buildProductBody(context, products);
+    }
   }
 
   Widget errorWidget(BuildContext context) {
