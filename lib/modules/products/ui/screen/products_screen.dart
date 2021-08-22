@@ -18,7 +18,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ProductsBloc>(context).add(GetProductDataEvent("en"));
+    getProductsData();
   }
 
   Products products;
@@ -54,9 +54,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   Widget defaultWidget(BuildContext context) {
     if (products == null) {
-      errorWidget(context);
+      return errorWidget(context);
     } else {
-      buildProductBody(context, products);
+      return buildProductBody(context, products);
     }
   }
 
@@ -223,9 +223,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           onPressed: () {
                             final FavoriteModel favoriteModel =
                                 FavoriteModel(productId: product.id);
-                            ProductsBloc.get(context).add(
-                                ChangeFavoriteProductEvent(
-                                    favoriteModel.toMap(), "en"));
+                            changeFavoriteProduct(favoriteModel, "en");
                           },
                         ),
                       ),
@@ -237,6 +235,19 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ],
         ),
       );
+
+  ////////////////////////////////////////
+  /////////////Helper function////////////
+  ////////////////////////////////////////
+
+  void changeFavoriteProduct(FavoriteModel favoriteModel, String language) {
+    ProductsBloc.get(context)
+        .add(ChangeFavoriteProductEvent(favoriteModel.toMap(), language));
+  }
+
+  void getProductsData() {
+    BlocProvider.of<ProductsBloc>(context).add(const GetProductDataEvent("en"));
+  }
 
   void buildToastMessage(String message, Color color) {
     Fluttertoast.showToast(
