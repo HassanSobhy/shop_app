@@ -1,63 +1,134 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/models/categories/categories.dart';
 import 'package:shop_app/models/categories/category.dart';
-import 'package:shop_app/modules/home/cubit/home_cubit.dart';
-import 'package:shop_app/modules/home/cubit/home_states.dart';
+import 'package:shop_app/modules/categories/bloc/categories_bloc.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
+  @override
+  _CategoriesScreenState createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> {
+  Categories categories;
+
+  @override
+  void initState() {
+    super.initState();
+    if (categories == null) {
+      CategoriesBloc.get(context).add(const GetCategoriesDataEvent("en"));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {},
+    return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, state) {
-        return ListView.separated(
-          itemBuilder: (context, index) => buildCatItem(HomeCubit.get(context)
-              .categoriesModel
-              .categoriesData
-              .categoryDataList[index]),
-          separatorBuilder: (context, index) => buildListViewDivider(),
-          itemCount: HomeCubit.get(context)
-              .categoriesModel
-              .categoriesData
-              .categoryDataList
-              .length,
-        );
+        if (state is CategoriesLoadingState) {
+          return loadingWidget();
+        } else if (state is CategoriesSuccessState) {
+          categories = state.categories;
+          return categoriesWidget(state.categories);
+        } else if (state is CategoriesErrorState) {
+          return errorWidget(context);
+        } else {
+          return defaultWidget();
+        }
       },
     );
   }
 
-  Widget buildCatItem(Category model) => Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          children: [
-            Image(
-              image: NetworkImage(model.image),
-              width: 80.0,
-              height: 80.0,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(
-              width: 20.0,
-            ),
-            Text(
-              model.name,
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-            ),
-          ],
-        ),
+  Widget defaultWidget() {
+    if (categories == null) {
+      return Center(
+        child: Container(),
       );
+    } else {
+      return categoriesWidget(categories);
+    }
+  }
 
-  Widget buildListViewDivider() {
-    return Divider(
+  Widget categoriesWidget(Categories categories) {
+    return ListView.separated(
+      itemBuilder: (context, index) {
+        final Category category =
+            categories.categoriesData.categoryDataList[index];
+        return categoryWidget(category);
+      },
+      separatorBuilder: (context, index) => dividerWidget(),
+      itemCount: categories.categoriesData.categoryDataList.length,
+    );
+  }
+
+  Widget categoryWidget(Category model) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          Image(
+            image: NetworkImage(model.image),
+            width: 80.0,
+            height: 80.0,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Text(
+            model.name,
+            style: const TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Spacer(),
+          const Icon(
+            Icons.arrow_forward_ios,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget errorWidget(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            "Data Loading Failed",
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: 200,
+            height: 200,
+            child: Image.asset("assets/images/error.png"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              CategoriesBloc.get(context)
+                  .add(const GetCategoriesDataEvent("en"));
+            },
+            child: const Text("Refresh"),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget dividerWidget() {
+    return const Divider(
       thickness: 1,
       color: Colors.grey,
+    );
+  }
+
+  Widget loadingWidget() {
+    return const Center(
+      child: CircularProgressIndicator(),
     );
   }
 }
