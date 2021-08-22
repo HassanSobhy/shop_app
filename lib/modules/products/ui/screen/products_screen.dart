@@ -77,9 +77,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
             child: Image.asset("assets/images/error.png"),
           ),
           ElevatedButton(
-            onPressed: () {
-              ProductsBloc.get(context).add(const GetProductDataEvent("en"));
-            },
+            onPressed: getProductsData,
             child: const Text("Refresh"),
           )
         ],
