@@ -5,5 +5,9 @@
   "email": "الحساب الالكتروني",
   "password": "كلمة السر",
   "dont_have_account": "ليس لديك حساب",
-  "register": "انشاء حساب"
+  "register": "انشاء حساب",
+  "email_is_empty": "الحساب فارغ",
+  "email_is_invalid": "الحساب غير صحيح",
+  "password_is_empty": "كلمة السر فارغة",
+  "password_is_invalid": "كلمة السر غير صحيحة"
 }

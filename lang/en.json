@@ -5,5 +5,9 @@
   "email": "Email",
   "password": "Password",
   "dont_have_account": "Don't have account",
-  "register": "Register"
+  "register": "Register",
+  "email_is_empty": "Email is empty",
+  "email_is_invalid": "Email is invalid",
+  "password_is_empty": "Password is empty",
+  "password_is_invalid": "Password is invalid"
 }

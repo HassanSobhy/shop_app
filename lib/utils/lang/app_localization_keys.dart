@@ -6,4 +6,8 @@ class LangKeys {
   static const PASSWORD = "password";
   static const DONT_HAVE_ACCOUNT = "dont_have_account";
   static const REGISTER = "register";
+  static const EMAIL_IS_EMPTY = "email_is_empty";
+  static const EMAIL_IS_INVALID = "email_is_invalid";
+  static const PASSWORD_IS_EMPTY = "password_is_empty";
+  static const PASSWIRD_IS_INVALID = "password_is_invalid";
 }

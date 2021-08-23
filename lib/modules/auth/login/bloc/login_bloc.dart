@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/models/login/login_model.dart';
 
 import 'package:shop_app/modules/auth/login/bloc/login_repository.dart';
+import 'package:shop_app/modules/auth/login/bloc/login_state.dart';
+import 'package:shop_app/utils/lang/app_localization_keys.dart';
 import 'package:shop_app/utils/validator.dart';
-import 'login_event.dart';
-import 'login_state.dart';
+import 'package:shop_app/models/login/login_model.dart';
+import 'package:shop_app/modules/auth/login/bloc/login_event.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final BaseLoginRepository loginRepository;
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
-  LoginBloc(this.loginRepository) : super(LoginInitialState());
+  LoginBloc(this.loginRepository) : super(const LoginInitialState());
 
   static LoginBloc get(BuildContext context) =>
       BlocProvider.of<LoginBloc>(context);
@@ -50,9 +50,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final ValidationState validateState = Validator.validateEmail(email);
 
     if (validateState == ValidationState.Empty) {
-      loginState = LoginEmailEmptyFormatState("Email is empty");
+      loginState = LoginEmailEmptyFormatState(LangKeys.EMAIL_IS_EMPTY);
     } else if (validateState == ValidationState.Formatting) {
-      loginState = LoginEmailInvalidFormatState("Email is invalid");
+      loginState = LoginEmailInvalidFormatState(LangKeys.EMAIL_IS_INVALID);
     } else {
       loginState = LoginEmailFormatCorrectState();
     }
@@ -63,9 +63,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginState loginState;
     final ValidationState validateState = Validator.validatePassword(password);
     if (validateState == ValidationState.Empty) {
-      loginState = LoginPasswordEmptyFormatState("Password is empty");
+      loginState = LoginPasswordEmptyFormatState(LangKeys.EMAIL_IS_EMPTY);
     } else if (validateState == ValidationState.Formatting) {
-      loginState = LoginPasswordInvalidFormatState("Password is invalid");
+      loginState =
+          LoginPasswordInvalidFormatState(LangKeys.PASSWIRD_IS_INVALID);
     } else {
       loginState = LoginPasswordFormatCorrectState();
     }

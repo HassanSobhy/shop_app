@@ -34,11 +34,10 @@ class LoginRepository extends BaseLoginRepository {
         _errorMessage = model.message;
         _loginState = LoginErrorState(_errorMessage);
       }
-    } on DioError catch (e) {
-      _errorMessage = AuthExceptionHandler.handleException(e);
+    } on DioError catch (error) {
+      _errorMessage = AuthExceptionHandler.handleException(error);
       _loginState = LoginErrorState(_errorMessage);
     }
-    ;
 
     return _loginState;
   }

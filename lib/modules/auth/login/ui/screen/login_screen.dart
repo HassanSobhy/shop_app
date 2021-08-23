@@ -116,7 +116,7 @@ class LoginScreen extends BaseStatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: translate(LangKeys.EMAIL),
-        errorText: emailValidateText,
+        errorText: translate(emailValidateText),
         prefixIcon: const Icon(Icons.email_outlined),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -134,7 +134,7 @@ class LoginScreen extends BaseStatelessWidget {
       controller: passwordController,
       decoration: InputDecoration(
         labelText: translate(LangKeys.PASSWORD),
-        errorText: passwordValidateText,
+        errorText: translate(passwordValidateText),
         prefixIcon: const Icon(Icons.lock_outline_rounded),
         suffixIcon: IconButton(
           icon: Icon(LoginBloc.get(context).suffix),
