@@ -18,7 +18,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   void initState() {
     super.initState();
-    getProductsData();
+    if (products == null) {
+      getProductsData();
+    }
   }
 
   Products products;
@@ -54,7 +56,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   Widget defaultWidget(BuildContext context) {
     if (products == null) {
-      return errorWidget(context);
+      return Center(
+        child: Container(),
+      );
     } else {
       return buildProductBody(context, products);
     }
