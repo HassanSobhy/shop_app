@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+
 import 'package:shop_app/constant.dart';
-import 'package:shop_app/models/categories/categories.dart';
 import 'package:shop_app/models/favorites/favorite_response_model.dart';
 import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/modules/products/bloc/products_bloc.dart';

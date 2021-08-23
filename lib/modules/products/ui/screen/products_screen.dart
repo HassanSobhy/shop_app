@@ -9,15 +9,28 @@ import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/products/product.dart';
 import 'package:shop_app/modules/products/bloc/products_bloc.dart';
 
-class ProductsScreen extends StatelessWidget {
+class ProductsScreen extends StatefulWidget {
+  @override
+  _ProductsScreenState createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    if (products == null) {
+      getProductsData();
+    }
+  }
+
+  Products products;
+
   @override
   Widget build(BuildContext context) {
-    Products products;
     return BlocConsumer<ProductsBloc, ProductsState>(
       listener: (context, state) {
         if (state is ProductsErrorState) {
-          final String message = state.message;
-          buildToastMessage(message, Colors.red);
+          buildToastMessage(state.message, Colors.red);
         }
       },
       builder: (context, state) {
@@ -29,7 +42,7 @@ class ProductsScreen extends StatelessWidget {
         } else if (state is ProductsErrorState) {
           return errorWidget(context);
         } else {
-          return errorWidget(context);
+          return defaultWidget(context);
         }
       },
     );
@@ -39,6 +52,16 @@ class ProductsScreen extends StatelessWidget {
     return const Center(
       child: CircularProgressIndicator(),
     );
+  }
+
+  Widget defaultWidget(BuildContext context) {
+    if (products == null) {
+      return Center(
+        child: Container(),
+      );
+    } else {
+      return buildProductBody(context, products);
+    }
   }
 
   Widget errorWidget(BuildContext context) {
@@ -58,9 +81,7 @@ class ProductsScreen extends StatelessWidget {
             child: Image.asset("assets/images/error.png"),
           ),
           ElevatedButton(
-            onPressed: () {
-              ProductsBloc.get(context).add(const GetProductDataEvent("en"));
-            },
+            onPressed: getProductsData,
             child: const Text("Refresh"),
           )
         ],
@@ -204,9 +225,7 @@ class ProductsScreen extends StatelessWidget {
                           onPressed: () {
                             final FavoriteModel favoriteModel =
                                 FavoriteModel(productId: product.id);
-                            ProductsBloc.get(context).add(
-                                ChangeFavoriteProductEvent(
-                                    favoriteModel.toMap(), "en"));
+                            changeFavoriteProduct(favoriteModel, "en");
                           },
                         ),
                       ),
@@ -218,6 +237,19 @@ class ProductsScreen extends StatelessWidget {
           ],
         ),
       );
+
+  ////////////////////////////////////////
+  /////////////Helper function////////////
+  ////////////////////////////////////////
+
+  void changeFavoriteProduct(FavoriteModel favoriteModel, String language) {
+    ProductsBloc.get(context)
+        .add(ChangeFavoriteProductEvent(favoriteModel.toMap(), language));
+  }
+
+  void getProductsData() {
+    BlocProvider.of<ProductsBloc>(context).add(const GetProductDataEvent("en"));
+  }
 
   void buildToastMessage(String message, Color color) {
     Fluttertoast.showToast(

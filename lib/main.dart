@@ -54,8 +54,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<BottomNavigationBarBloc>(
             create: (BuildContext context) => BottomNavigationBarBloc()),
         BlocProvider<ProductsBloc>(
-          create: (BuildContext context) => ProductsBloc(ProductsRepository())
-            ..add(const GetProductDataEvent("en")),
+          create: (BuildContext context) => ProductsBloc(ProductsRepository()),
         ),
         BlocProvider<CategoriesBloc>(
             create: (BuildContext context) =>
