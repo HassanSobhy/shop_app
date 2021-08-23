@@ -197,8 +197,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> navigateToHomeScreen(BuildContext context) async {
-    await Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+    await Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 
   void buildSnackBar(BuildContext context, String errorMessage) {

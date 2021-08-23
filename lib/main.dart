@@ -7,6 +7,8 @@ import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/home/home_screen.dart';
 import 'package:shop_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:shop_app/modules/products/bloc/products_bloc.dart';
+import 'package:shop_app/modules/products/bloc/products_repository.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
 import 'package:shop_app/network/remote/dio_helper.dart';
 import 'package:shop_app/shop_observer.dart';
@@ -49,6 +51,9 @@ class _MyAppState extends State<MyApp> {
             create: (BuildContext context) => HomeCubit()..getAllData()),
         BlocProvider<BottomNavigationBarBloc>(
             create: (BuildContext context) => BottomNavigationBarBloc()),
+        BlocProvider<ProductsBloc>(
+          create: (BuildContext context) => ProductsBloc(ProductsRepository()),
+        ),
         BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()),
       ],
