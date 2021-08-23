@@ -16,7 +16,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   void initState() {
     super.initState();
     if (categories == null) {
-      CategoriesBloc.get(context).add(const GetCategoriesDataEvent("en"));
+      getCategories();
     }
   }
 
@@ -36,6 +36,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         }
       },
     );
+  }
+
+  //////////////////////////////////////////
+  ///////helper function///////////////////
+  ////////////////////////////////////////
+
+  void getCategories() {
+    CategoriesBloc.get(context).add(const GetCategoriesDataEvent("en"));
   }
 
   Widget defaultWidget() {
@@ -108,10 +116,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             child: Image.asset("assets/images/error.png"),
           ),
           ElevatedButton(
-            onPressed: () {
-              CategoriesBloc.get(context)
-                  .add(const GetCategoriesDataEvent("en"));
-            },
+            onPressed: getCategories,
             child: const Text("Refresh"),
           )
         ],
