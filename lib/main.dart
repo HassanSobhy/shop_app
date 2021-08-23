@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/modules/categories/bloc/categories_bloc.dart';
+import 'package:shop_app/modules/categories/bloc/categories_repository.dart';
 import 'package:shop_app/modules/home/bloc/bottom_navigation_bar_bloc.dart';
 import 'package:shop_app/modules/auth/login/ui/screen/login_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
@@ -54,6 +56,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ProductsBloc>(
           create: (BuildContext context) => ProductsBloc(ProductsRepository()),
         ),
+        BlocProvider<CategoriesBloc>(
+            create: (BuildContext context) =>
+                CategoriesBloc(CategoriesRepository())),
         BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()),
       ],

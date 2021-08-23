@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:shop_app/modules/categories/categories_screen.dart';
+import 'package:shop_app/modules/categories/ui/categories_screen.dart';
 import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/bloc/bottom_navigation_bar_bloc.dart';
 import 'package:shop_app/modules/products/ui/screen/products_screen.dart';
