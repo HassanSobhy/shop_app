@@ -1,19 +1,19 @@
 import 'banner.dart';
 import 'product.dart';
 
-class Data {
+class ProductsData {
   List<Banner> banners;
   List<Product> products;
   String ad;
 
-  Data({
+  ProductsData({
     this.banners,
     this.products,
     this.ad,
   });
 
   //Convert from JSON To Data Model
-  Data.fromJson(Map<String, dynamic> json) {
+  ProductsData.fromJson(Map<String, dynamic> json) {
     if (json['banners'] != null) {
       banners = <Banner>[];
       json['banners'].forEach((element) {

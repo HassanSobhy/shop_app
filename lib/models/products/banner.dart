@@ -1,4 +1,4 @@
-import 'category.dart';
+import 'package:shop_app/models/categories/category.dart';
 
 class Banner {
   int id;

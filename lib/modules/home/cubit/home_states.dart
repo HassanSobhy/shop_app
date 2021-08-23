@@ -1,14 +1,10 @@
-import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
+import 'package:shop_app/models/favorites/favorite_response_model.dart';
 
 abstract class HomeStates {}
 
 class HomeInitialState extends HomeStates {}
 
-class HomeLoadingState extends HomeStates {}
-
-class HomeSuccessState extends HomeStates {}
-
-class HomeErrorState extends HomeStates {}
+class HomeCategoryLoadingState extends HomeStates {}
 
 class HomeCategorySuccessState extends HomeStates {}
 

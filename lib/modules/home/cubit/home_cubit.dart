@@ -5,13 +5,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shop_app/constant.dart';
-import 'package:shop_app/models/category_models/categories_model.dart';
-import 'package:shop_app/models/favorites_models/favorite.dart';
-import 'package:shop_app/models/favorites_models/favorite_response_model.dart';
-import 'package:shop_app/models/home.dart';
+import 'package:shop_app/models/categories/categories.dart';
+import 'package:shop_app/models/favorites/favorite.dart';
+import 'package:shop_app/models/favorites/favorite_response_model.dart';
+import 'package:shop_app/models/products/products.dart';
 import 'package:shop_app/models/login/login_response_model.dart';
-import 'package:shop_app/modules/categories/categories_screen.dart';
-import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/home/cubit/home_states.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/local/preference_utils.dart';
@@ -23,47 +21,21 @@ class HomeCubit extends Cubit<HomeStates> {
   static HomeCubit get(BuildContext context) => BlocProvider.of(context);
 
   bool isGetCategories = false;
-  bool isGetProducts = false;
   bool isGetFavorites = false;
   bool isGetProfile = false;
 
-  Home home;
-  CategoriesModel categoriesModel;
+  Products home;
+  Categories categoriesModel;
   FavoriteResponseModel favoriteResponseModel;
   LoginResponseModel userDataModel;
-  Favorite favorite;
+  Favorites favorite;
   Map<int, bool> favorites = {};
 
-  Future<void> getHomeData() async {
-    emit(HomeLoadingState());
-    try {
-      Response response = await HomeApiService.getData(
-          path: HOME, token: PreferenceUtils.getData(userTokenKey));
-
-      home = Home.fromJson(response.data);
-
-      if (home.status) {
-        isGetProducts = true;
-
-        home.data.products.forEach((element) {
-          //Add new pair to map
-          favorites[element.id] = element.inFavorites;
-        });
-        emit(HomeSuccessState());
-      } else {
-        emit(HomeErrorState());
-      }
-    } catch (e) {
-      print(e.toString());
-      emit(HomeErrorState());
-    }
-  }
-
   Future<void> getCategoryData() async {
-    emit(HomeLoadingState());
+    emit(HomeCategoryLoadingState());
     try {
       Response response = await HomeApiService.getData(path: CATEGORIES);
-      categoriesModel = CategoriesModel.fromJson(response.data);
+      categoriesModel = Categories.fromJson(response.data);
       if (categoriesModel.status) {
         isGetCategories = true;
         emit(HomeCategorySuccessState());
@@ -109,7 +81,7 @@ class HomeCubit extends Cubit<HomeStates> {
         path: FAVORITES,
         token: PreferenceUtils.getData(userTokenKey),
       );
-      favorite = Favorite.fromJson(response.data);
+      favorite = Favorites.fromJson(response.data);
       if (favorite.status) {
         isGetFavorites = true;
         emit(HomeSuccessFavoritesState());
@@ -171,11 +143,10 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   void getAllData() async {
-    await getHomeData();
     await getCategoryData();
     await getFavorites();
     await getProfileData();
-    if (isGetCategories && isGetProducts && isGetFavorites && isGetProfile) {
+    if (isGetCategories && isGetFavorites && isGetProfile) {
       emit(HomeDataSuccessState());
     } else {
       emit(HomeDataErrorState());

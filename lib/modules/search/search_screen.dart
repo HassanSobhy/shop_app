@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/models/favorites/favorite_model.dart';
 
-import 'package:shop_app/models/favorites_models/favorite_model.dart';
 import 'package:shop_app/models/search_model.dart';
 import 'package:shop_app/modules/home/cubit/home_cubit.dart';
 import 'package:shop_app/modules/search/cubit/search_states.dart';
